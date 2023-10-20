@@ -1,0 +1,21 @@
+.contact_container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.contact_container h2 {
+  margin-bottom: 20px;
+}
+.contact_container h3 {
+  margin-bottom: 10px;
+}
+.contact_container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contact_container ul li {
+  list-style: none;
+}
