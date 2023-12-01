@@ -20,8 +20,6 @@ function AccountPanel() {
     middleName: "",
     email: "",
     gender: "",
-    password: "",
-    passwordConfirm: "",
     role: "",
     DepartmentId: "",
     phoneNumber: "",
@@ -70,8 +68,6 @@ function AccountPanel() {
       formData.append("middleName", values.middleName);
       formData.append("email", values.email);
       formData.append("gender", values.gender);
-      formData.append("password", values.password);
-      formData.append("passwordConfirm", values.passwordConfirm);
       formData.append("DepartmentId", values.DepartmentId);
       values.role && formData.append("role", values.role);
       formData.append("phoneNumber", values.phoneNumber);

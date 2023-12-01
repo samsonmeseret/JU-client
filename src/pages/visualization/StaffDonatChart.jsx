@@ -40,8 +40,19 @@ function DashboardCard06({ data }) {
           <h2 className="font-semibold text-slate-800">Overall Staff Status</h2>
         </header>
         <div>
-          <div>
-            <PolarChart data={chartData} width={389} height={260} />
+          <div className="grid grid-col-1 md:grid-cols-2">
+            <div className="p-3 flex flex-col justify-center items-center shadow-md ml-10 text-7xl">
+              <h1 className="text-7xl font-bold text-blue-500">
+                <span>{data?.total}</span>
+              </h1>
+              <div className="flex flex-col">
+                <span className="text-5xl">Staffs</span>
+                <small className="text-sm text-right">total</small>
+              </div>
+            </div>
+            <div>
+              <PolarChart data={chartData} width={389} height={260} />
+            </div>
             {/* <PieChart /> */}
           </div>
           <div className="">

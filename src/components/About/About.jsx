@@ -38,12 +38,12 @@ const About = () => {
           <p className="py-3">
             The faculty runs five undergraduate training programs (Medicine,
             Health Officer, Physiotherapy, Anesthesia and Dentistry), five
-            graduate programs, fifteen specialty training, five subspeciality
+            graduate programs, fifteen specialty training, five Subspecialty
             training (together with our alumni) and one PhD program. In order to
             enhance the quality educations we deliver, we have three skill
             laboratories, three libraries (two health science libraries, one
             post graduate) and we use Jimma University Medical Center for
-            undergraduate, for graduate, for specialty and subspecialty
+            undergraduate, for graduate, for specialty and Subspecialty
             trainings. As one of the nation’s oldest medical school, we aspire
             to be one of best medical school in Africa and renewed in the world.
           </p>

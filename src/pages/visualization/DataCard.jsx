@@ -10,11 +10,12 @@ const DataCard = ({ data }) => {
         <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
 
         <div className="sm:flex sm:justify-between sm:gap-4">
+          {/* on Education */}
           <div className=" rounded-lg shadow-2xl p-5 flex flex-col">
             <h3 className="mb-3 text-lg font-bold text-gray-900 sm:text-xl">
               On Education
             </h3>
-            <div className="flex gap-5">
+            <div className="flex gap-5 justify-between">
               <div>
                 <p className="flex gap-3">
                   <span>Domestic </span>
@@ -31,17 +32,19 @@ const DataCard = ({ data }) => {
               </div>
             </div>
           </div>
+          {/* Academic Rank */}
           <div className="rounded-lg shadow-2xl p-5 flex flex-col">
             <h3 className="mb-3 text-lg font-bold text-gray-900 sm:text-xl">
               By Academic Rank
             </h3>
-            <div className="flex gap-5">
+            <div className="flex gap-5 justify-between">
               <div>
                 <p className="flex gap-3">
                   <span>Graduate Assistant I </span>
                 </p>
                 <p>Graduate Assistant II</p>
                 <p>Assistant Lecture</p>
+                <p>Lecture</p>
                 <p>Technical Assistance I</p>
                 <p>Technical Assistance II</p>
                 <p>Technical Assistance III</p>
@@ -51,7 +54,7 @@ const DataCard = ({ data }) => {
                 <p>Chief Technical Assistant I</p>
                 <p>Chief Technical Assistant II</p>
                 <p>Chief Technical Assistant III</p>
-                <p>Assistance Professor</p>
+                <p>Assistant Professor</p>
                 <p>Associate Professor</p>
                 <p>Professor</p>
               </div>
@@ -61,6 +64,7 @@ const DataCard = ({ data }) => {
                 </p>
                 <p> {data?.byRank?.graduateAssistantII}</p>
                 <p> {data?.byRank?.assistantLecture}</p>
+                <p> {data?.byRank?.lecturer}</p>
                 <p> {data?.byRank?.technicalAssistanceI}</p>
                 <p> {data?.byRank?.technicalAssistanceII}</p>
                 <p> {data?.byRank?.technicalAssistanceIII}</p>
@@ -72,10 +76,43 @@ const DataCard = ({ data }) => {
                 <p> {data?.byRank?.chiefTechnicalAssistantIII}</p>
                 <p> {data?.byRank?.assistanceProfessor}</p>
                 <p> {data?.byRank?.associateProfessor}</p>
-                <p> {data?.byRank?.professor}</p>
+                <p> {data?.byRank?.professor} </p>
               </div>
             </div>
           </div>
+          {/* Educational Level */}
+          <div className="rounded-lg shadow-2xl p-5 flex flex-col">
+            <h3 className="mb-3 text-lg font-bold text-gray-900 sm:text-xl">
+              By Educational Level
+            </h3>
+            <div className="flex gap-5 justify-between">
+              <div>
+                <p className="flex gap-3">
+                  <span>BSC</span>
+                </p>
+                <p>MD</p>
+                <p>DMD</p>
+                <p>MSC</p>
+                <p>PHD</p>
+                <p>Specialty</p>
+                <p>Subspecialty</p>
+                <p>Super Specialty</p>
+              </div>
+              <div>
+                <p className="flex gap-3">
+                  <span> {data?.byEducationalLevel?.BSC}</span>
+                </p>
+                <p> {data?.byEducationalLevel?.MD}</p>
+                <p> {data?.byEducationalLevel?.DMD}</p>
+                <p> {data?.byEducationalLevel?.MSC}</p>
+                <p> {data?.byEducationalLevel?.PHD}</p>
+                <p> {data?.byEducationalLevel?.Specialty} </p>
+                <p> {data?.byEducationalLevel?.Subspecialty}</p>
+                <p> {data?.byEducationalLevel?.SuperSpecialty}</p>
+              </div>
+            </div>
+          </div>
+          {/* gender */}
           <div className="rounded-lg shadow-2xl p-5 flex flex-col">
             <h3 className="text-lg font-bold text-gray-900 sm:text-xl mb-3">
               By Gender
@@ -97,6 +134,28 @@ const DataCard = ({ data }) => {
                 </p>
                 <p>
                   <span> {data?.result?.length}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* Citizenship */}
+          <div className="rounded-lg shadow-2xl p-5 flex flex-col">
+            <h3 className="text-lg font-bold text-gray-900 sm:text-xl mb-3">
+              By Citizenship
+            </h3>
+            <div className="flex gap-5">
+              <div>
+                <p className="flex gap-3">
+                  <span>Ethiopians </span>
+                </p>
+                <p>Foreigners</p>
+              </div>
+              <div>
+                <p className="flex gap-3">
+                  <span> {data?.byCitizenship?.ethiopian}</span>
+                </p>
+                <p>
+                  <span> {data?.byCitizenship?.Abroad}</span>
                 </p>
               </div>
             </div>

@@ -439,6 +439,7 @@ function UsersList() {
                                 </div>
                               ) : null} */}
                             </div>
+                            {/* firstName */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -462,6 +463,7 @@ function UsersList() {
                                 </div>
                               ) : null}
                             </div>
+                            {/* middle Name */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -473,7 +475,7 @@ function UsersList() {
                                 id="middleName"
                                 className="form-input w-full"
                                 type="text"
-                                autoComplete="on"
+                                // autoComplete="on"
                                 name="middleName"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -486,6 +488,7 @@ function UsersList() {
                                 </div>
                               ) : null}
                             </div>
+                            {/* lastName */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -510,6 +513,7 @@ function UsersList() {
                                 </div>
                               ) : null}
                             </div>
+                            {/* email */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -521,7 +525,7 @@ function UsersList() {
                                 id="email"
                                 className="form-input w-full"
                                 type="email"
-                                autoComplete="on"
+                                // autoComplete="on"
                                 name="email"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
