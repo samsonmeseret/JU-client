@@ -9,7 +9,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Link } from "react-router-dom";
 import { ProgressBar, RotatingLines } from "react-loader-spinner";
-import { axiosInstance } from "../../api/axios";
+import { axiosInstanceForFile } from "../../api/axios";
 import useFetch from "../../customHooks/useFetch";
 import moment from "moment";
 import Swal from "sweetalert2";
@@ -28,8 +28,8 @@ const AnnualPlan = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  console.log(result);
   const fileHandler = (e) => {
+    console.log(e);
     setFile((prev) => {
       return {
         file: e.target.files[0],
@@ -49,7 +49,7 @@ const AnnualPlan = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosInstance
+        axiosInstanceForFile
           .delete(`/file/${plan.id}?userId=${plan.UserId}`)
           .then((data) => {
             console.log(data);
@@ -69,12 +69,12 @@ const AnnualPlan = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(file);
+
     const formData = new FormData();
     formData.append("name", file.name);
     formData.append("file", file.file);
     setIsLoading(true);
-    axiosInstance
+    axiosInstanceForFile
       .post("/file", formData)
       .then((data) => {
         console.log(data);

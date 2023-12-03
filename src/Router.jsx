@@ -29,6 +29,7 @@ import { Footer } from "antd/es/layout/layout";
 import AnnualPlan from "./pages/AnnualPlan/AnnualPlan";
 import Curriculum from "./pages/curriculum/Curriculum";
 import StudentList from "./pages/student-list/StudentList";
+import CalendarComponent from "./pages/Calender/Calender";
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +79,14 @@ export const router = createBrowserRouter([
         element: (
           // <ProtectRole>
           <DepartmentList />
+          // </ProtectRole>
+        ),
+      },
+      {
+        path: "calender",
+        element: (
+          // <ProtectRole>
+          <CalendarComponent />
           // </ProtectRole>
         ),
       },

@@ -287,6 +287,21 @@ function LeaveList() {
           return `${found?.firstName} ${found?.middleName}`;
         },
       },
+    {
+      headerName: "Day Count",
+      width: 200,
+      renderCell: (params) => {
+        const now = moment();
+        const end = moment(params?.row?.to);
+        const diff = end.diff(now);
+        if (diff < 0) {
+          // Event has ended
+          return <div>{`${Math.abs(end.diff(now, "days"))} days ago`}</div>;
+        } else {
+          return <div>{`${end.diff(now, "days")} days left`}</div>;
+        }
+      },
+    },
   ]);
   const style = {
     position: "absolute",
@@ -381,7 +396,7 @@ function LeaveList() {
               {/* Left: Title */}
               <div className="mb-4 sm:mb-0">
                 <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">
-                  Leave Request 🎓
+                  Requests
                 </h1>
               </div>
 

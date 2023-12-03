@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../Redux/reducers/authSlice";
 import blackLogo from "../components/Nav/Logo/main-logo-black.png";
+import { axiosInstance } from "../api/axios";
 
 const cookies = new Cookie();
 
@@ -39,21 +40,25 @@ function Signin() {
     onSubmit: (values) => {
       setIsLoading(true);
 
-      axios
-        .post(`${endPoint.BASE_URL}${endPoint.LOGIN}`, values)
+      axiosInstance
+        .post(`${endPoint.LOGIN}`, values, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
         .then((data) => {
-          cookies.set("us_id", data?.data?.token, {
-            path: "/",
-            secure: false,
-            // httpOnly: true,
-            expires: new Date(data?.data?.expires),
-          });
+          // window.localStorage.setItem("us_id", data.data.token);
+          // cookies.set("us_id", data?.data?.token, {
+          //   path: "/",
+          //   secure: false,
+          //   // httpOnly: true,
+          //   expires: new Date(data?.data?.expires),
+          // });
           // console.log(data)
           dispatch(getUser());
           setTimeout(() => {
             navigate("/dashboard");
             setIsLoading(false);
-            window.location.reload();
+            // window.location.reload();
           }, 2000);
         })
         .catch((err) => {

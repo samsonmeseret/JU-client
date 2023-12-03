@@ -270,6 +270,57 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
+              {/* Calender */}
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === "/" || pathname.includes("calender")
+                }
+              >
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <a
+                        href="#0"
+                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                          pathname.includes("calender") &&
+                          "hover:text-slate-200"
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <NavLink
+                          end
+                          to="/dashboard/calender"
+                          className={({ isActive }) =>
+                            "block text-slate-400 hover:text-slate-200 transition duration-150 truncate " +
+                            (isActive ? "!text-indigo-500" : "")
+                          }
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                              <BsCollection
+                                className={`fill-current text-slate-400 ${
+                                  (pathname === "/calender" ||
+                                    pathname.includes("calender")) &&
+                                  "text-indigo-300"
+                                }`}
+                              />
+                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Calender
+                              </span>
+                            </div>
+                          </div>
+                        </NavLink>
+                      </a>
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+
               {/* Office and Units */}
               {user?.role == "dean" && (
                 <SidebarLinkGroup

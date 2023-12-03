@@ -42,7 +42,7 @@ const Hero = () => {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 to="/signin"
-                className=" bg-indigo-600 px-40 rounded-full py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className=" bg-indigo-600 px-10 md:px-40 rounded-full py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign In
               </Link>
