@@ -6,7 +6,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { PiUsersThreeLight } from "react-icons/pi";
 import { CiMedicalCase } from "react-icons/ci";
 import { BsCollection, BsFillJournalBookmarkFill } from "react-icons/bs";
-import { FaUniversity, FaCalendar } from "react-icons/fa";
+import { FaUniversity, FaRegCalendarAlt, FaCalendar } from "react-icons/fa";
 import { MdOutlineMoveDown, MdOutlineCastForEducation } from "react-icons/md";
 import Logo from "../components/Nav/Logo/Logo";
 import { useSelector } from "react-redux";
@@ -271,55 +271,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
 
               {/* Calender */}
-              <SidebarLinkGroup
-                activecondition={
-                  pathname === "/" || pathname.includes("calender")
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <a
-                        href="#0"
-                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes("calender") &&
-                          "hover:text-slate-200"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <NavLink
-                          end
-                          to="/dashboard/calender"
-                          className={({ isActive }) =>
-                            "block text-slate-400 hover:text-slate-200 transition duration-150 truncate " +
-                            (isActive ? "!text-indigo-500" : "")
-                          }
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <BsCollection
-                                className={`fill-current text-slate-400 ${
-                                  (pathname === "/calender" ||
-                                    pathname.includes("calender")) &&
-                                  "text-indigo-300"
-                                }`}
-                              />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Calender
-                              </span>
-                            </div>
-                          </div>
-                        </NavLink>
-                      </a>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
 
               {/* Office and Units */}
               {user?.role == "dean" && (
@@ -473,9 +424,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* annual plan */}
+              {/* caleder */}
               <SidebarLinkGroup
-                activecondition={pathname.includes("annual-plan")}
+                activecondition={
+                  pathname === "/" || pathname.includes("calender")
+                }
               >
                 {(handleClick, open) => {
                   return (
@@ -483,7 +436,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <a
                         href="#0"
                         className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes("annual-plan") &&
+                          pathname.includes("calender") &&
                           "hover:text-slate-200"
                         }`}
                         onClick={(e) => {
@@ -495,7 +448,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       >
                         <NavLink
                           end
-                          to="/dashboard/annual-plan"
+                          to="/dashboard/calender"
                           className={({ isActive }) =>
                             "block text-slate-400 hover:text-slate-200 transition duration-150 truncate " +
                             (isActive ? "!text-indigo-500" : "")
@@ -503,15 +456,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                              <FaCalendar
+                              <FaRegCalendarAlt
                                 className={`fill-current text-slate-400 ${
-                                  (pathname == "/annual-plan" ||
-                                    pathname.includes("annual-plan")) &&
+                                  (pathname === "/calender" ||
+                                    pathname.includes("calender")) &&
                                   "text-indigo-300"
                                 }`}
                               />
                               <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Annual Plan
+                                Calender
                               </span>
                             </div>
                           </div>
@@ -521,103 +474,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* Curriculum */}
-              <SidebarLinkGroup
-                activecondition={pathname.includes("curriculum")}
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <a
-                        href="#0"
-                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes("curriculum") &&
-                          "hover:text-slate-200"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <NavLink
-                          end
-                          to="/dashboard/curriculum"
-                          className={({ isActive }) =>
-                            "block text-slate-400 hover:text-slate-200 transition duration-150 truncate " +
-                            (isActive ? "!text-indigo-500" : "")
-                          }
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <BsFillJournalBookmarkFill
-                                className={`fill-current text-slate-400 ${
-                                  (pathname == "/curriculum" ||
-                                    pathname.includes("curriculum")) &&
-                                  "text-indigo-300"
-                                }`}
-                              />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Curriculum
-                              </span>
-                            </div>
-                          </div>
-                        </NavLink>
-                      </a>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* Student List */}
-              <SidebarLinkGroup
-                activecondition={pathname.includes("student-list")}
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <a
-                        href="#0"
-                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes("student-list") &&
-                          "hover:text-slate-200"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <NavLink
-                          end
-                          to="/dashboard/student-list"
-                          className={({ isActive }) =>
-                            "block text-slate-400 hover:text-slate-200 transition duration-150 truncate " +
-                            (isActive ? "!text-indigo-500" : "")
-                          }
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <MdOutlineCastForEducation
-                                className={`fill-current text-slate-400 ${
-                                  (pathname == "/student-list" ||
-                                    pathname.includes("student-list")) &&
-                                  "text-indigo-300"
-                                }`}
-                              />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Student-List
-                              </span>
-                            </div>
-                          </div>
-                        </NavLink>
-                      </a>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* Users */}
+
               {user?.role == "dean" && (
                 <SidebarLinkGroup activecondition={pathname.includes("users")}>
                   {(handleClick, open) => {

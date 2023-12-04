@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const DataCard = ({ data }) => {
+  console.log(data);
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div>
       <a
@@ -26,6 +28,11 @@ const DataCard = ({ data }) => {
               <div>
                 <p className="flex gap-3">
                   <span> {data?.domesticOnEducation}</span>
+                  {/* <div className="hidden hover:block">
+                    {data.domesticOnEducationData.map((item) => {
+                      return <p>{item}</p>;
+                    })}
+                  </div> */}
                 </p>
                 <p> {data?.abroadOnEducation}</p>
                 <p> {data?.totalOnEducation}</p>
@@ -62,6 +69,7 @@ const DataCard = ({ data }) => {
                 <p className="flex gap-3">
                   <span> {data?.byRank?.graduateAssistantI}</span>
                 </p>
+
                 <p> {data?.byRank?.graduateAssistantII}</p>
                 <p> {data?.byRank?.assistantLecture}</p>
                 <p> {data?.byRank?.lecturer}</p>
@@ -76,7 +84,24 @@ const DataCard = ({ data }) => {
                 <p> {data?.byRank?.chiefTechnicalAssistantIII}</p>
                 <p> {data?.byRank?.assistanceProfessor}</p>
                 <p> {data?.byRank?.associateProfessor}</p>
-                <p> {data?.byRank?.professor} </p>
+                <p
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  {" "}
+                  {data?.byRank?.professor}{" "}
+                </p>
+                {isHovered && (
+                  <ul className="absolute bottom-0 bg-white p-5">
+                    {data?.byRank?.professorData?.map((item) => {
+                      return (
+                        <li key={item.firstName}>
+                          {item.firstName} {item.lastName}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
           </div>

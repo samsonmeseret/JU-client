@@ -63,11 +63,9 @@ function LeaveList() {
   function ActionBtn({ params, rowId }) {
     let leaveSelected = params.row;
 
-    setLeave(leaveSelected);
-
-    const editHandler = () => {
-      // setLeave(leaveSelected)
-      // setOpen(false);
+    const editHandler = (data) => {
+      // console.log(params.row);
+      setLeave(params.row);
       setIsEditing(true);
     };
     const declineHandler = useCallback(() => {
@@ -82,7 +80,7 @@ function LeaveList() {
       }).then((result) => {
         if (result.isConfirmed) {
           axiosInstance
-            .patch(`/leaves/${leaveSelected.id}/decline`, {
+            .patch(`/leaves/${params?.row?.id}/decline`, {
               status: "declined",
             })
             .then((data) => {
@@ -296,9 +294,18 @@ function LeaveList() {
         const diff = end.diff(now);
         if (diff < 0) {
           // Event has ended
-          return <div>{`${Math.abs(end.diff(now, "days"))} days ago`}</div>;
+          return (
+            <div className="text-red-500">{`${Math.abs(
+              end.diff(now, "days")
+            )} days ago`}</div>
+          );
         } else {
-          return <div>{`${end.diff(now, "days")} days left`}</div>;
+          return (
+            <div className="text-green-500">{`${end.diff(
+              now,
+              "days"
+            )} days left`}</div>
+          );
         }
       },
     },
@@ -670,9 +677,6 @@ function LeaveList() {
                   setEditing={setIsEditing}
                   isEditing={isEditing}
                   leave={leave}
-                  // department={specialization}
-                  // departmentList={departmentList}
-                  //   setIsLoading={setIsLoading}
                   isLoading={isLoading}
                 />
 

@@ -12,7 +12,6 @@ import ProfileDisplay from "./pages/settings/ProfileDisplaye";
 import DepartmentList from "./pages/departments/Departments";
 import DepartmentDisplay from "./pages/departments/DepartmentDisplay";
 import SpecializationsList from "./pages/specializations/Specializations";
-import SpecializationsDisplay from "./pages/specializations/SpecializationDisplay";
 import StaffList from "./pages/staffs/StaffList";
 import StaffDisplay from "./pages/staffs/StaffsDisplay";
 import LeaveList from "./pages/leaves/LeaveList";
@@ -26,9 +25,6 @@ import About from "./components/About/About";
 import ContactUs from "./components/ContactUs/ContactUs";
 import ProtectRole from "./ProtectRoute/ProtectRole";
 import { Footer } from "antd/es/layout/layout";
-import AnnualPlan from "./pages/AnnualPlan/AnnualPlan";
-import Curriculum from "./pages/curriculum/Curriculum";
-import StudentList from "./pages/student-list/StudentList";
 import CalendarComponent from "./pages/Calender/Calender";
 
 export const router = createBrowserRouter([
@@ -103,10 +99,6 @@ export const router = createBrowserRouter([
         element: <SpecializationsList />,
       },
       {
-        path: "departments/:departmentId/programs/:programId",
-        element: <SpecializationsDisplay />,
-      },
-      {
         path: "departments/:departmentId/staffs",
         element: <StaffList />,
       },
@@ -118,18 +110,6 @@ export const router = createBrowserRouter([
       {
         path: "leaves",
         element: <LeaveList />,
-      },
-      {
-        path: "annual-plan",
-        element: <AnnualPlan />,
-      },
-      {
-        path: "curriculum",
-        element: <Curriculum />,
-      },
-      {
-        path: "student-list",
-        element: <StudentList />,
       },
 
       // on Education

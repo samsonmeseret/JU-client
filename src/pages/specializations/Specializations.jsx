@@ -23,12 +23,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useParams } from "react-router-dom";
 import CompLoader from "../../components/CompLoader";
-import ModalBasic from "../../components/ModalBasic";
 import { axiosInstance } from "../../api/axios";
 import EdittingForm from "./EdittingForm";
 import { useSelector, useDispatch } from "react-redux";
 import { getSpecializations } from "../../Redux/reducers/dataSlice";
 import { toast, ToastContainer } from "react-toastify";
+import FileUploadModal from "../FileUploadModal/FileUploadModal";
 
 function SpecializationsList() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -48,10 +48,6 @@ function SpecializationsList() {
   useEffect(() => {
     dispatch(getSpecializations(departmentId));
   }, []);
-
-  //   const handleSelectedItems = (selectedItems) => {
-  //     setSelectedItems([...selectedItems]);
-  //   };
 
   function ActionBtn({ params, rowId }) {
     let specialization = params.row;
@@ -85,14 +81,6 @@ function SpecializationsList() {
     return (
       <>
         <section className="flex gap-5 ">
-          {/* <Link
-            style={{ borderRadius: "7px" }}
-            to={`${specialization.id}`}
-            // onClick={viewHandler}
-            className="p-3   hover:outline outline-1 outline-blue-600 cursor-pointer "
-          >
-            <IoOpenOutline />
-          </Link> */}
           <div
             onClick={editHandler}
             style={{ borderRadius: "7px" }}
@@ -136,18 +124,90 @@ function SpecializationsList() {
       headerName: "Program Name",
       width: 200,
     },
-    // {
-    //   field: "academicCoordinator",
-    //   headerName: "Adedamic Coordinator",
-    //   width: 200,
-    //   description: "Accedemic Coordinator of the Faculity",
-    // },
-    // {
-    //   field: "clinicalCoordinator",
-    //   headerName: "Clinical Coordinator",
-    //   width: 200,
-    //   description: "Clinical Coordinator in the Hospital",
-    // },
+    // annual plan
+    {
+      field: "annual",
+      headerName: "Annual Plan",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <>
+            <section>
+              <div>
+                <FileUploadModal
+                  name={"Annual Plan"}
+                  data={params.row}
+                  url={`/file`}
+                />
+              </div>
+            </section>
+          </>
+        );
+      },
+    },
+    // monthly plan
+    {
+      headerName: "Monthly Plan",
+      width: 200,
+      field: "monthly",
+      renderCell: (params) => {
+        return (
+          <>
+            <section>
+              <div>
+                <FileUploadModal
+                  name="Monthly Plan"
+                  data={params?.row}
+                  url={"/monthly-plan"}
+                />
+              </div>
+            </section>
+          </>
+        );
+      },
+    },
+    // curriculum
+    {
+      headerName: "Curriculum",
+      width: 200,
+      field: "curriculum",
+      renderCell: (params) => {
+        return (
+          <>
+            <section>
+              <div>
+                <FileUploadModal
+                  name="Curriculum"
+                  data={params?.row}
+                  url={"/curriculum-file"}
+                />
+              </div>
+            </section>
+          </>
+        );
+      },
+    },
+    // student list
+    {
+      headerName: "Students List",
+      width: 200,
+      field: "students",
+      renderCell: (params) => {
+        return (
+          <>
+            <section>
+              <div>
+                <FileUploadModal
+                  name="Students"
+                  data={params?.row}
+                  url={"/student-file"}
+                />
+              </div>
+            </section>
+          </>
+        );
+      },
+    },
   ]);
   const style = {
     position: "absolute",
@@ -239,7 +299,7 @@ function SpecializationsList() {
               {/* Right: Actions */}
               <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                 {/* Search form */}
-                <SearchForm placeholder="Search by Program" />
+                {/* <SearchForm placeholder="Search by Program" /> */}
                 {/* Create invoice button */}
                 <button
                   onClick={() => setOpen(true)}
