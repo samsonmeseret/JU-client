@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../customHooks/useFetch";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -6,19 +6,38 @@ import CompLoader from "../../components/CompLoader";
 import { axiosInstance } from "../../api/axios";
 import { Box, Modal } from "@mui/material";
 import { GrClose } from "react-icons/gr";
-import { getInstructors } from "../../Redux/reducers/dataSlice";
+import {
+  getInstructors,
+  getAllInstructors,
+} from "../../Redux/reducers/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import moment from "moment";
 
 const EdittingForm = ({ setEditing, isEditing, education }) => {
   const dispatch = useDispatch();
-  const { instructorList, isLoading } = useSelector((state) => state.deptData);
+  const { instructorList, allInstructors, isLoading } = useSelector(
+    (state) => state.deptData
+  );
+  const [currentInst, setCurrentInst] = useState();
   const { user, isAuth } = useSelector((state) => state.auth);
+  // console.log(education);
+  // console.log(user);
 
   useEffect(() => {
     if (!instructorList || instructorList?.length == 0) {
       dispatch(getInstructors());
     }
+    getAllInstructors();
+    // if (user.role == "dean") {
+    //   let filteredInst = allInstructors.filter(
+    //     (item) => item.DepartmentId == item.DepartmentId
+    //   );
+    //   setCurrentInst(filteredInst);
+    //   console.log(filteredInst);
+    // } else {
+    //   setCurrentInst(allInstructors);
+    // }
   }, []);
 
   const {
@@ -50,9 +69,10 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
     initialValues: {
       type: education?.type,
       studyField: education?.studyField,
-      startDate: education?.startDate,
-      endDate: education?.endDate,
+      startDate: moment(education?.startDate).format("YYYY-MM-DD"),
+      endDate: moment(education?.endDate).format("YYYY-MM-DD"),
       InstructorId: education?.InstructorId,
+      onExtension: education?.onExtension,
     },
 
     validationSchema: Yup.object({
@@ -65,6 +85,7 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
       ),
     }),
     onSubmit: (values) => {
+      console.log(values);
       axiosInstance
         .patch("/on-education/" + education.id, values)
         .then((data) => {
@@ -93,7 +114,6 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
             theme: "light",
           });
         });
-      // dispatch(getDepartments());
     },
   });
   return (
@@ -105,7 +125,10 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="ml-auto" onClick={() => setEditing(false)}>
+          <div
+            className="ml-auto p-2 hover:bg-red-200 w-10 rounded-md cursor-pointer"
+            onClick={() => setEditing(false)}
+          >
             <GrClose className="ml-auto" />
           </div>
           <h1 className="mx-auto text-center text-lg">Education Status Info</h1>
@@ -232,9 +255,13 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.InstructorId}
                     >
+                      {/* {currentInst?.map((item) => {
+                        item.id == formik.values.InstructorId ? ( */}
                       <option value="">-- select instructor --</option>
+                      {/* ) : null;
+                      })} */}
                       <>
-                        {instructorList?.map((dept, i) => {
+                        {allInstructors?.map((dept, i) => {
                           return (
                             <option key={i} value={dept.id}>
                               {dept.firstName} {dept.middleName} {dept.lastName}
@@ -249,6 +276,18 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
                         {formik.errors.InstructorId}
                       </div>
                     ) : null}
+                  </div>
+                  <div className="flex gap-3 justify-center items-center">
+                    <input
+                      id="onExtension"
+                      name="onExtension"
+                      type="checkbox"
+                      value={formik?.values?.onExtension}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      defaultChecked={education?.onExtension}
+                    />
+                    <label htmlFor="onExtension"> onExtension </label>
                   </div>
                 </div>
                 <div className="flex items-center justify-center mt-6">

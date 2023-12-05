@@ -68,7 +68,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
       axiosInstance
         .patch("/leaves/" + leave.id, values)
         .then((data) => {
-          toast.success("Leave Updated Successfully", {
+          toast.success("Request Updated Successfully", {
             position: "top-right",
             autoClose: 1000,
             hideProgressBar: false,
@@ -109,7 +109,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
           <div className="ml-auto" onClick={() => setEditing(false)}>
             <GrClose className="ml-auto" />
           </div>
-          <h1 className="mx-auto text-center text-lg">Leave Info</h1>
+          <h1 className="mx-auto text-center text-lg">Request Info</h1>
 
           <section>
             <div>
@@ -121,7 +121,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
                       className="block text-sm font-medium mb-1"
                       htmlFor="leaveType"
                     >
-                      Leave Type
+                      Request Type
                     </label>
                     <select
                       name="leaveType"
@@ -132,7 +132,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
                       onBlur={formik.handleBlur}
                       value={formik?.values?.leaveType}
                     >
-                      <option value="">-- select Leave Type --</option>
+                      <option value="">-- select Request Type --</option>
                       <>
                         {[
                           "Annual Leave",
@@ -205,7 +205,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
                       className="block text-sm font-medium mb-1"
                       htmlFor="totalDay"
                     >
-                      Total Leave Days
+                      Total Request Days
                     </label>
                     <input
                       id="totalDay"
@@ -288,7 +288,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
                     {isLoading ? (
                       <CompLoader height={"20px"} color="#ffffff" />
                     ) : (
-                      "Update leave"
+                      "Update Request"
                     )}
                   </button>
                 </div>

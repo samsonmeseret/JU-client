@@ -71,7 +71,7 @@ function LeaveList() {
     const declineHandler = useCallback(() => {
       Swal.fire({
         title: "Are you sure?",
-        text: `You want to Decline this Leave`,
+        text: `You want to Decline this Request`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -87,7 +87,7 @@ function LeaveList() {
               if (data?.data?.status == "failed") {
                 return Swal.fire("Failed!", `${data?.data?.message}`, "error");
               }
-              Swal.fire("Approved!", "Leave has been Approved.", "success");
+              Swal.fire("Declined!", "Request has been Declined.", "success");
               dispatch(getLeaves());
             });
         }
@@ -100,7 +100,7 @@ function LeaveList() {
     const deleteHandler = useCallback(() => {
       Swal.fire({
         title: "Are you sure?",
-        text: `You want to delete this Leave`,
+        text: `You want to delete this Request`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -109,7 +109,7 @@ function LeaveList() {
       }).then((result) => {
         if (result.isConfirmed) {
           axiosInstance.delete(`/leaves/${leaveSelected.id}`).then(() => {
-            Swal.fire("Deleted!", "User has been deleted.", "success");
+            Swal.fire("Deleted!", "Request has been deleted.", "success");
             dispatch(getLeaves());
           });
         }
@@ -118,7 +118,7 @@ function LeaveList() {
     const approveHandler = useCallback(() => {
       Swal.fire({
         title: "Are you sure?",
-        text: `You want to Approve this Leave`,
+        text: `You want to Approve this Request`,
         icon: "success",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -134,7 +134,7 @@ function LeaveList() {
               if (data?.data?.status == "failed") {
                 return Swal.fire("Failed!", `${data?.data?.message}`, "error");
               }
-              Swal.fire("Approved!", "Leave has been Approved.", "success");
+              Swal.fire("Approved!", "Request has been Approved.", "success");
               dispatch(getLeaves());
             });
         }
@@ -237,7 +237,7 @@ function LeaveList() {
     },
     {
       field: "leaveType",
-      headerName: "Leave Type",
+      headerName: "Request Type",
       width: 170,
     },
     {
@@ -338,20 +338,20 @@ function LeaveList() {
     },
 
     validationSchema: Yup.object({
-      leaveType: Yup.string().required("please enter the leave type"),
-      from: Yup.string().required("please select the leave starting date"),
-      to: Yup.string().required("please select the leave ending date"),
+      leaveType: Yup.string().required("please enter the request type"),
+      from: Yup.string().required("please select the request starting date"),
+      to: Yup.string().required("please select the request ending date"),
       totalDay: Yup.string().required("please enter the total day in number"),
-      reason: Yup.string().required("please enter the reason for a leave"),
+      reason: Yup.string().required("please enter the reason for a request"),
       InstructorId: Yup.string().required(
-        "please select the instructor applying the leave"
+        "please select the instructor applying the request"
       ),
     }),
     onSubmit: (values) => {
       axiosInstance
         .post("/leaves", values)
         .then((data) => {
-          toast.success("Leave Created Successfully", {
+          toast.success("Request Created Successfully", {
             position: "top-right",
             autoClose: 1000,
             hideProgressBar: false,
@@ -422,7 +422,7 @@ function LeaveList() {
                   >
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                   </svg>
-                  <span className="hidden xs:block ml-2">Create Leave</span>
+                  <span className="hidden xs:block ml-2">Create Request</span>
                 </button>
               </div>
             </div>
@@ -472,7 +472,7 @@ function LeaveList() {
                         </div>
 
                         <h1 className="mx-auto text-center text-lg">
-                          Leave Info
+                          Request Info
                         </h1>
 
                         <form onSubmit={formik.handleSubmit}>
@@ -483,7 +483,7 @@ function LeaveList() {
                                 className="block text-sm font-medium mb-1"
                                 htmlFor="leaveType"
                               >
-                                Leave Type
+                                Request Type
                               </label>
                               <select
                                 name="leaveType"
@@ -495,7 +495,7 @@ function LeaveList() {
                                 value={formik.values.leaveType}
                               >
                                 <option value="">
-                                  -- select Leave Type --
+                                  -- select Request Type --
                                 </option>
                                 <>
                                   {[
@@ -574,7 +574,7 @@ function LeaveList() {
                                 className="block text-sm font-medium mb-1"
                                 htmlFor="totalDay"
                               >
-                                Total Leave Days
+                                Total Requested Days
                               </label>
                               <input
                                 id="totalDay"
@@ -663,7 +663,7 @@ function LeaveList() {
                               {isLoading ? (
                                 <CompLoader height={"20px"} color="#ffffff" />
                               ) : (
-                                "Create leave"
+                                "Create Request"
                               )}
                             </button>
                           </div>

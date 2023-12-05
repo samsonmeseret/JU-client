@@ -51,7 +51,7 @@ function DashboardCard06({ data }) {
               </div>
             </div>
             <div>
-              <PolarChart data={chartData} width={389} height={260} />
+              {/* <PolarChart data={chartData} width={389} height={260} /> */}
             </div>
             {/* <PieChart /> */}
           </div>

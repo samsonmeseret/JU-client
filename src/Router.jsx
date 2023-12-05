@@ -26,6 +26,7 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import ProtectRole from "./ProtectRoute/ProtectRole";
 import { Footer } from "antd/es/layout/layout";
 import CalendarComponent from "./pages/Calender/Calender";
+import Inbox from "./pages/Inbox";
 
 export const router = createBrowserRouter([
   {
@@ -110,6 +111,7 @@ export const router = createBrowserRouter([
       {
         path: "leaves",
         element: <LeaveList />,
+        // element: <Inbox />,
       },
 
       // on Education

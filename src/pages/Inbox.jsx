@@ -1,41 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
-import InboxSidebar from '../partials/inbox/InboxSidebar';
-import InboxBody from '../partials/inbox/InboxBody';
+import Sidebar from "../partials/Sidebar";
+import Header from "../partials/Header";
+import InboxSidebar from "../partials/inbox/InboxSidebar";
+import InboxBody from "../partials/inbox/InboxBody";
 
 function Inbox() {
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [inboxSidebarOpen, setInboxSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
-
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {/* <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> */}
 
-      {/* Content area */} 
+      {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-
         {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        {/* <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> */}
 
         <main>
           <div className="relative flex">
-
             {/* Inbox sidebar */}
-            <InboxSidebar inboxSidebarOpen={inboxSidebarOpen} setInboxSidebarOpen={setInboxSidebarOpen} />
+            <InboxSidebar
+              inboxSidebarOpen={inboxSidebarOpen}
+              setInboxSidebarOpen={setInboxSidebarOpen}
+            />
 
             {/* Inbox body */}
-            <InboxBody inboxSidebarOpen={inboxSidebarOpen} setInboxSidebarOpen={setInboxSidebarOpen} />
-
+            <InboxBody
+              inboxSidebarOpen={inboxSidebarOpen}
+              setInboxSidebarOpen={setInboxSidebarOpen}
+            />
           </div>
         </main>
-
       </div>
-      
     </div>
   );
 }

@@ -142,7 +142,7 @@ function LeaveList() {
       field: "actions",
       headerName: "Actions",
       type: "actions",
-      width: 250,
+      width: 200,
       renderCell: (params) => (
         <ActionBtn onClick={(e) => {}} {...{ params, rowId, setRowId }} />
       ),
@@ -150,7 +150,7 @@ function LeaveList() {
     {
       field: "type",
       headerName: "Location",
-      width: 200,
+      width: 100,
       // description: "Clinical Coordinator in the Hospital",
     },
     {
@@ -181,11 +181,12 @@ function LeaveList() {
       },
     },
     {
+      field: "count",
       headerName: "Day Count",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
         const now = moment();
-        const end = moment(params?.row?.to);
+        const end = moment(params?.row?.endDate);
         const diff = end.diff(now);
         if (diff < 0) {
           // Event has ended
@@ -200,6 +201,29 @@ function LeaveList() {
               now,
               "days"
             )} days left`}</div>
+          );
+        }
+      },
+    },
+    {
+      field: "onExtension",
+      headerName: "On Extention",
+      width: 200,
+      renderCell: (params) => {
+        // console.log(params);
+        if (params?.row?.onExtension == true) {
+          return (
+            <div className="text-green-500">
+              {/* {new String(params?.row?.isExtended)} */}
+              YES
+            </div>
+          );
+        } else {
+          return (
+            <div className="text-red-500">
+              {/* {new String(params?.row?.isExtended)} */}
+              NO
+            </div>
           );
         }
       },
