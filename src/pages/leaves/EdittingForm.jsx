@@ -106,8 +106,12 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="ml-auto" onClick={() => setEditing(false)}>
-            <GrClose className="ml-auto" />
+          <div
+            className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+            onClick={() => setEditing(false)}
+          >
+            {/* <GrClose /> */}
+            <span>close</span>
           </div>
           <h1 className="mx-auto text-center text-lg">Request Info</h1>
 

@@ -1,8 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
-import SearchForm from "../../partials/actions/SearchForm";
-import DeleteButton from "../../partials/actions/DeleteButton";
-import DateSelect from "../../components/DateSelect";
-import FilterButton from "../../components/DropdownFilter";
 import Swal from "sweetalert2";
 import {
   DataGrid,
@@ -18,13 +14,11 @@ import { GoPencil } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import { SiNike } from "react-icons/si";
 import Modal from "@mui/material/Modal";
-import { GrClose } from "react-icons/gr";
-import useFetch from "../../customHooks/useFetch";
+
 import { swap, useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import CompLoader from "../../components/CompLoader";
-import ModalBasic from "../../components/ModalBasic";
 import { axiosInstance } from "../../api/axios";
 import EdittingForm from "./EdittingForm";
 import { useSelector, useDispatch } from "react-redux";
@@ -36,11 +30,13 @@ import {
 } from "../../Redux/reducers/dataSlice";
 import { toast, ToastContainer } from "react-toastify";
 import moment from "moment";
+import ViewOnlyCalendar from "../Calender/ViewOnlyCalender";
 
 function LeaveList() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [leave, setLeave] = useState({});
+  const [openLeave, setOpenLeave] = useState(false);
 
   const dispatch = useDispatch();
   // const { fetchAllData } = useFetch();
@@ -56,9 +52,13 @@ function LeaveList() {
     if (!userList || userList?.length == 0) dispatch(getUsers());
   }, []);
 
-  //   const handleSelectedItems = (selectedItems) => {
-  //     setSelectedItems([...selectedItems]);
-  //   };
+  function getEvents(inputArray) {
+    return inputArray?.map((item) => ({
+      title: `${item.Instructor.firstName} ${item.Instructor.lastName} (${item.status})`,
+      start: item.from,
+      end: item.to,
+    }));
+  }
 
   function ActionBtn({ params, rowId }) {
     let leaveSelected = params.row;
@@ -218,7 +218,7 @@ function LeaveList() {
   const [rowId, setRowId] = useState(null);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
-
+  const closeCalender = () => setOpenLeave(false);
   const column = useMemo(() => [
     {
       field: "actions",
@@ -326,6 +326,23 @@ function LeaveList() {
     p: 4,
   };
 
+  const calStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    // maxWidth: 800,
+    maxHeight: "100vh",
+    overflowY: "scroll",
+    // width: "80%",
+    minWidth: "100%",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    borderRadius: "7px",
+    boxShadow: 24,
+    p: 4,
+  };
+
   const formik = useFormik({
     initialValues: {
       leaveType: "",
@@ -395,6 +412,33 @@ function LeaveList() {
         pauseOnHover
         theme="light"
       />
+      <Modal
+        open={openLeave}
+        onClose={closeCalender}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={calStyle}>
+          <section>
+            <div>
+              <div
+                className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                onClick={closeCalender}
+              >
+                {/* <GrClose /> */}
+                <span>close </span>
+              </div>
+              {/* <div className="ml-auto" onClick={closeCalender}>
+                <GrClose className="ml-auto" />
+              </div> */}
+
+              <section>
+                <ViewOnlyCalendar name="Leave" events={getEvents(leaveList)} />
+              </section>
+            </div>
+          </section>
+        </Box>
+      </Modal>
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -431,7 +475,7 @@ function LeaveList() {
             <div className="sm:flex sm:justify-between sm:items-center mb-5">
               {/* Left side */}
               <div className="mb-4 sm:mb-0">
-                <ul className="flex flex-wrap -m-1">
+                <ul className="flex flex-wrap -m-1 items-center gap-3">
                   <li className="m-1">
                     <button
                       onClick={() => {
@@ -440,6 +484,14 @@ function LeaveList() {
                       className="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out"
                     >
                       Refresh <span className="ml-1 text-indigo-200">🔃</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setOpenLeave(true)}
+                      className="hover:text-white hover:bg-gray-700 rounded-full px-3 py-1 text-gray-700 bg-gray-100 duration-300 ease-in"
+                    >
+                      Open in Calender
                     </button>
                   </li>
                 </ul>
@@ -467,8 +519,12 @@ function LeaveList() {
                   <Box sx={style}>
                     <section>
                       <div>
-                        <div className="ml-auto" onClick={handleClose}>
-                          <GrClose className="ml-auto" />
+                        <div
+                          className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                          onClick={handleClose}
+                        >
+                          {/* <GrClose /> */}
+                          <span>close</span>
                         </div>
 
                         <h1 className="mx-auto text-center text-lg">

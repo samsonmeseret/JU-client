@@ -1,8 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
-import SearchForm from "../../partials/actions/SearchForm";
-import DeleteButton from "../../partials/actions/DeleteButton";
-import DateSelect from "../../components/DateSelect";
-import FilterButton from "../../components/DropdownFilter";
 import Swal from "sweetalert2";
 import {
   DataGrid,
@@ -13,49 +9,47 @@ import Box from "@mui/material/Box";
 // import data from "./data.json";
 import { gridClasses } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { IoOpenOutline } from "react-icons/io5";
 import { GoPencil } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
-import { SiNike } from "react-icons/si";
 import Modal from "@mui/material/Modal";
-import { GrClose } from "react-icons/gr";
 import useFetch from "../../customHooks/useFetch";
 import { swap, useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import CompLoader from "../../components/CompLoader";
-import ModalBasic from "../../components/ModalBasic";
 import { axiosInstance } from "../../api/axios";
 import EdittingForm from "./EdittingForm";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getLeaves,
-  getInstructors,
-  getUsers,
-  getAllInstructors,
-} from "../../Redux/reducers/dataSlice";
+import { getAllInstructors } from "../../Redux/reducers/dataSlice";
 import { toast, ToastContainer } from "react-toastify";
 import moment from "moment";
+import ViewOnlyCalendar from "../Calender/ViewOnlyCalender";
 
 function LeaveList() {
-  const [selectedItems, setSelectedItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [education, setEducation] = useState({});
+  const [openCalender, setOpenCalender] = useState(false);
 
   const dispatch = useDispatch();
   const { fetchAllData, isLoading, result } = useFetch();
   const { allInstructors } = useSelector((state) => state.deptData);
   const { user, isAuth } = useSelector((state) => state.auth);
 
+  console.log(result);
+
+  function getOnEducation(inputArray) {
+    return inputArray?.map((item) => ({
+      title: `${item.Instructor.firstName}/${item.studyField}/(${item.type})`,
+      start: item?.startDate,
+      end: item.endDate,
+    }));
+  }
+
   useEffect(() => {
     dispatch(getAllInstructors());
 
     fetchAllData("/on-education");
   }, [isEditing]);
-
-  //   const handleSelectedItems = (selectedItems) => {
-  //     setSelectedItems([...selectedItems]);
-  //   };
 
   function ActionBtn({ params, rowId }) {
     let leaveSelected = params.row;
@@ -90,23 +84,6 @@ function LeaveList() {
     return (
       <>
         <section className="flex gap-2 ">
-          {/* {(user?.role == "dean" && leaveSelected?.status != "declined") && <button
-                        style={{ borderRadius: "7px" }}
-                        // to={`${specialization.id}`}
-                        onClick={leaveSelected?.status == "pending" ? approveHandler : null}
-                        className={leaveSelected?.status == "pending" ? "p-3 text-green-700  hover:outline outline-1 outline-blue-600 cursor-pointer " : "p-3 text-red-600-700   "}
-                    >
-                        <span className=""> {(leaveSelected?.status == "pending") ? "Approve" : "Approved"} </span>
-                    </button>}
-                    {(user?.role == "dean" && leaveSelected?.status != "approved") && <button
-                        style={{ borderRadius: "7px" }}
-                        // to={`${specialization.id}`}
-                        onClick={leaveSelected?.status == "pending" ? declineHandler : null}
-                        className={leaveSelected?.status == "pending" ? "p-3 text-green-700  hover:outline outline-1 outline-blue-600 cursor-pointer " : "p-3 text-red-600-700   "}
-                    >
-                        <span className=""> {(leaveSelected?.status == "pending" && leaveSelected.status != "approved" && leaveSelected.status != "declined") ? "Decline" : "Declined"} </span>
-                    </button>} */}
-
           <div
             onClick={editHandler}
             style={{ borderRadius: "7px" }}
@@ -245,6 +222,23 @@ function LeaveList() {
     p: 4,
   };
 
+  const calStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    // maxWidth: 800,
+    maxHeight: "100vh",
+    overflowY: "scroll",
+    // width: "80%",
+    minWidth: "100%",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    borderRadius: "7px",
+    boxShadow: 24,
+    p: 4,
+  };
+
   const formik = useFormik({
     initialValues: {
       type: "",
@@ -299,6 +293,33 @@ function LeaveList() {
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Content area */}
+      <Modal
+        open={openCalender}
+        onClose={() => setOpenCalender(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={calStyle}>
+          <section>
+            <div>
+              <div
+                className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                onClick={() => setOpenCalender(false)}
+              >
+                {/* <GrClose /> */}
+                <span>close </span>
+              </div>
+
+              <section>
+                <ViewOnlyCalendar
+                  name="Staff On Education"
+                  events={getOnEducation(result)}
+                />
+              </section>
+            </div>
+          </section>
+        </Box>
+      </Modal>
       <ToastContainer
         position="top-right"
         autoClose={1000}
@@ -349,7 +370,7 @@ function LeaveList() {
             <div className="sm:flex sm:justify-between sm:items-center mb-5">
               {/* Left side */}
               <div className="mb-4 sm:mb-0">
-                <ul className="flex flex-wrap -m-1">
+                <ul className="flex flex-wrap -m-1 items-center">
                   <li className="m-1">
                     <button
                       onClick={() => {
@@ -358,6 +379,14 @@ function LeaveList() {
                       className="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out"
                     >
                       Refresh <span className="ml-1 text-indigo-200">🔃</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setOpenCalender(true)}
+                      className="hover:text-white hover:bg-gray-700 rounded-full px-3 py-1 text-gray-700 bg-gray-100 duration-300 ease-in"
+                    >
+                      Open in Calender
                     </button>
                   </li>
                 </ul>
@@ -385,8 +414,12 @@ function LeaveList() {
                   <Box sx={style}>
                     <section>
                       <div>
-                        <div className="ml-auto" onClick={handleClose}>
-                          <GrClose className="ml-auto" />
+                        <div
+                          className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                          onClick={handleClose}
+                        >
+                          {/* <GrClose /> */}
+                          <span>close </span>
                         </div>
 
                         <h1 className="mx-auto text-center text-lg">

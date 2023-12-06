@@ -30,7 +30,7 @@ function DepartmentDisplay() {
         >
           <BiArrowBack /> <button>Back </button>
         </Link>
-        <div className="p-6 mt-10 mb-40 justify-center flex flex-col md:flex-row  gap-9">
+        <div className="p-6 gap-40 mt-10 mb-40 justify-center items-center flex flex-col md:flex-row    ">
           <section>
             <Link
               to={`/dashboard/departments/${departmentId}/programs`}

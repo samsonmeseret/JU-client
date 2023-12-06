@@ -144,6 +144,14 @@ function OfficeList() {
       headerName: "Major Activities",
       width: 250,
     },
+    {
+      field: "appointedDate",
+      headerName: "Appointed Date",
+      width: 200,
+      renderCell: (data) => {
+        return <div>{moment(data?.row?.appointedDate).format("ll")}</div>;
+      },
+    },
   ]);
   const style = {
     position: "absolute",
@@ -167,12 +175,14 @@ function OfficeList() {
       // description: "",
       coordinator: "",
       majorActivity: "",
+      appointedDate: "",
     },
 
     validationSchema: Yup.object({
       name: Yup.string().required("please enter the office name"),
       coordinator: Yup.string().required("please provide the coordinator"),
       majorActivity: Yup.string().required("please provide the major activity"),
+      appointedDate: Yup.string().required("please provide the appinted date"),
     }),
     onSubmit: (values) => {
       axiosInstance
@@ -294,8 +304,12 @@ function OfficeList() {
                   <Box sx={style}>
                     <section>
                       <div>
-                        <div className="ml-auto" onClick={handleClose}>
-                          <GrClose className="ml-auto" />
+                        <div
+                          className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                          onClick={handleClose}
+                        >
+                          {/* <GrClose /> */}
+                          <span>close</span>
                         </div>
 
                         <h1 className="mx-auto text-center text-lg">
@@ -374,6 +388,30 @@ function OfficeList() {
                               formik.errors.majorActivity ? (
                                 <div className="text-red-600">
                                   {formik.errors.majorActivity}
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* appionted date */}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="appointedDate"
+                              >
+                                Appointed Date
+                              </label>
+                              <input
+                                id="appointedDate"
+                                name="appointedDate"
+                                className="form-input w-full"
+                                type="date"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.appointedDate}
+                              />
+                              {formik.touched.appointedDate &&
+                              formik.errors.appointedDate ? (
+                                <div className="text-red-600">
+                                  {formik.errors.appointedDate}
                                 </div>
                               ) : null}
                             </div>

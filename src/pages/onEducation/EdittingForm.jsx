@@ -126,11 +126,13 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
       >
         <Box sx={style}>
           <div
-            className="ml-auto p-2 hover:bg-red-200 w-10 rounded-md cursor-pointer"
+            className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
             onClick={() => setEditing(false)}
           >
-            <GrClose className="ml-auto" />
+            {/* <GrClose /> */}
+            <span>close </span>
           </div>
+
           <h1 className="mx-auto text-center text-lg">Education Status Info</h1>
 
           <section>

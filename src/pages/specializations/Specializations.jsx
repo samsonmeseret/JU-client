@@ -42,7 +42,7 @@ function SpecializationsList() {
   const { specializationList, departmentList, isLoading } = useSelector(
     (state) => state.deptData
   );
-
+  console.log(specializationList);
   const { departmentId } = useParams();
 
   useEffect(() => {
@@ -356,8 +356,12 @@ function SpecializationsList() {
                   <Box sx={style}>
                     <section>
                       <div>
-                        <div className="ml-auto" onClick={handleClose}>
-                          <GrClose className="ml-auto" />
+                        <div
+                          className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
+                          onClick={handleClose}
+                        >
+                          {/* <GrClose /> */}
+                          <span>close</span>
                         </div>
 
                         <h1 className="mx-auto text-center text-lg">
