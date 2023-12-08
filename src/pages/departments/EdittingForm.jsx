@@ -9,6 +9,7 @@ import { GrClose } from "react-icons/gr";
 import { getDepartments } from "../../Redux/reducers/dataSlice";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import moment from "moment";
 
 const EdittingForm = ({
   setEditing,
@@ -30,10 +31,10 @@ const EdittingForm = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    maxWidth: 800,
+    maxWidth: "100%",
     maxHeight: "100vh",
     overflowY: "scroll",
-    width: 500,
+    width: 700,
     bgcolor: "background.paper",
     border: "2px solid #000",
     borderRadius: "7px",
@@ -46,19 +47,55 @@ const EdittingForm = ({
     enableReinitialize: true,
     initialValues: {
       name: department?.name,
+      // head
       departmentHead: department?.departmentHead,
-      academicCoordinator: department?.academicCoordinator,
-      clinicalCoordinator: department?.clinicalCoordinator,
+      departmentHeadRole: department?.departmentHeadRole,
+      departmentHeadAppointedDate: moment(
+        department?.departmentHeadAppointedDate
+      ).format("YYYY-MM-DD"),
+      // acc vise head
+      viseDepartmentHeadForAccademic:
+        department?.viseDepartmentHeadForAccademic,
+      viseDepartmentHeadForAccademicRole:
+        department?.viseDepartmentHeadForAccademicRole,
+      viseDepartmentHeadForAccademicAppointedDate: moment(
+        department?.viseDepartmentHeadForAccademicAppointedDate
+      ).format("YYYY-MM-DD"),
+      //clin vise head
+      viseDepartmentHeadForClinical: department?.viseDepartmentHeadForClinical,
+      viseDepartmentHeadForClinicalRole:
+        department?.viseDepartmentHeadForClinicalRole,
+      viseDepartmentHeadForClinicalAppointedDate: moment(
+        department?.viseDepartmentHeadForClinicalAppointedDate
+      ).format("YYYY-MM-DD"),
     },
 
     validationSchema: Yup.object({
       name: Yup.string().required("please enter the department name"),
-      academicCoordinator: Yup.string().required(
-        "please enter the academic coordinator"
-      ),
       departmentHead: Yup.string().required("please enter the department head"),
-      clinicalCoordinator: Yup.string().required(
-        "please enter the clinical coordinator"
+      departmentHeadRole: Yup.string().required(
+        "please enter the department head roles"
+      ),
+      departmentHeadAppointedDate: Yup.string().required(
+        "please enter the Appointed Date"
+      ),
+      viseDepartmentHeadForAccademic: Yup.string().required(
+        "please enter the vise Department Head for Accadamic"
+      ),
+      viseDepartmentHeadForAccademicRole: Yup.string().required(
+        "please enter the vise Department Head for Accadamic Role"
+      ),
+      viseDepartmentHeadForAccademicAppointedDate: Yup.string().required(
+        "please enter the vise Department Head for Accadamic Appointed date"
+      ),
+      viseDepartmentHeadForClinical: Yup.string().required(
+        "please enter the vise Department Head for Clinical"
+      ),
+      viseDepartmentHeadForClinicalRole: Yup.string().required(
+        "please enter the vise Department Head for Clinical Role"
+      ),
+      viseDepartmentHeadForClinicalAppointedDate: Yup.string().required(
+        "please enter the vise Department Head for Clinical Appointed date"
       ),
     }),
     onSubmit: (values) => {
@@ -107,7 +144,10 @@ const EdittingForm = ({
         <Box sx={style}>
           <div
             className="ml-auto w-20 text-red-500 bg-red-50 rounded-md hover:bg-red-200 cursor-pointer ease-in duration-200 hover:text-red-900 p-1 flex justify-center "
-            onClick={() => setEditing(false)}
+            onClick={() => {
+              formik.resetForm();
+              setEditing(false);
+            }}
           >
             {/* <GrClose /> */}
             <span>close </span>
@@ -119,6 +159,7 @@ const EdittingForm = ({
             <div>
               <form onSubmit={formik.handleSubmit}>
                 <div className="space-y-4">
+                  {/* name */}
                   <div>
                     <label
                       className="block text-sm font-medium mb-1"
@@ -139,6 +180,7 @@ const EdittingForm = ({
                       <div className="text-red-600">{formik.errors.name}</div>
                     ) : null}
                   </div>
+                  {/* department head */}
                   <div>
                     <label
                       className="block text-sm font-medium mb-1"
@@ -150,7 +192,6 @@ const EdittingForm = ({
                       id="departmentHead"
                       className="form-input w-full"
                       type="text"
-                      autoComplete="on"
                       name="departmentHead"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -163,51 +204,212 @@ const EdittingForm = ({
                       </div>
                     ) : null}
                   </div>
+                  {/* department head role*/}
                   <div>
                     <label
                       className="block text-sm font-medium mb-1"
-                      htmlFor="academicCoordinator"
+                      htmlFor="departmentHeadRole"
                     >
-                      Acedamic Coordinator
+                      Department Head Roles
                     </label>
-                    <input
-                      id="academicCoordinator"
+                    <textarea
+                      rows={5}
+                      id="departmentHeadRole"
                       className="form-input w-full"
                       type="text"
-                      autoComplete="on"
-                      name="academicCoordinator"
+                      name="departmentHeadRole"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.academicCoordinator}
+                      value={formik.values.departmentHeadRole}
                     />
-                    {formik.touched.academicCoordinator &&
-                    formik.errors.academicCoordinator ? (
+                    {formik.touched.departmentHeadRole &&
+                    formik.errors.departmentHeadRole ? (
                       <div className="text-red-600">
-                        {formik.errors.academicCoordinator}
+                        {formik.errors.departmentHeadRole}
                       </div>
                     ) : null}
                   </div>
+                  {/* dpt head appointed date */}
                   <div>
                     <label
                       className="block text-sm font-medium mb-1"
-                      htmlFor="clinicalCoordinator"
+                      htmlFor="departmentHeadAppointedDate"
                     >
-                      Clinical Coordinator
+                      Department Head Appointed Date
                     </label>
                     <input
-                      id="clinicalCoordinator"
+                      id="departmentHeadAppointedDate"
                       className="form-input w-full"
-                      type="text"
-                      autoComplete="on"
-                      name="clinicalCoordinator"
+                      type="date"
+                      name="departmentHeadAppointedDate"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.clinicalCoordinator}
+                      value={formik.values.departmentHeadAppointedDate}
                     />
-                    {formik.touched.clinicalCoordinator &&
-                    formik.errors.clinicalCoordinator ? (
+                    {formik.touched.departmentHeadAppointedDate &&
+                    formik.errors.departmentHeadAppointedDate ? (
                       <div className="text-red-600">
-                        {formik.errors.clinicalCoordinator}
+                        {formik.errors.departmentHeadAppointedDate}
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* vise dpt departmet for accademic */}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForAccademic"
+                    >
+                      Vise Department Head for Accademic
+                    </label>
+                    <input
+                      id="viseDepartmentHeadForAccademic"
+                      className="form-input w-full"
+                      type="text"
+                      name="viseDepartmentHeadForAccademic"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.viseDepartmentHeadForAccademic}
+                    />
+                    {formik.touched.viseDepartmentHeadForAccademic &&
+                    formik.errors.viseDepartmentHeadForAccademic ? (
+                      <div className="text-red-600">
+                        {formik.errors.viseDepartmentHeadForAccademic}
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* accedemic roles */}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForAccademicRole"
+                    >
+                      Vise Department Head Roles for Accademic
+                    </label>
+                    <textarea
+                      rows={5}
+                      id="viseDepartmentHeadForAccademicRole"
+                      className="form-input w-full"
+                      type="text"
+                      name="viseDepartmentHeadForAccademicRole"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.viseDepartmentHeadForAccademicRole}
+                    />
+                    {formik.touched.viseDepartmentHeadForAccademicRole &&
+                    formik.errors.viseDepartmentHeadForAccademicRole ? (
+                      <div className="text-red-600">
+                        {formik.errors.viseDepartmentHeadForAccademicRole}
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* accedamic appointed date */}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForAccademicAppointedDate"
+                    >
+                      Vise Department Head Appointed Date for Accademic
+                    </label>
+                    <input
+                      id="viseDepartmentHeadForAccademicAppointedDate"
+                      className="form-input w-full"
+                      type="date"
+                      name="viseDepartmentHeadForAccademicAppointedDate"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={
+                        formik.values
+                          .viseDepartmentHeadForAccademicAppointedDate
+                      }
+                    />
+                    {formik.touched
+                      .viseDepartmentHeadForAccademicAppointedDate &&
+                    formik.errors
+                      .viseDepartmentHeadForAccademicAppointedDate ? (
+                      <div className="text-red-600">
+                        {
+                          formik.errors
+                            .viseDepartmentHeadForAccademicAppointedDate
+                        }
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* clinical head */}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForClinical"
+                    >
+                      Vise Department Head for Clinical
+                    </label>
+                    <input
+                      id="viseDepartmentHeadForClinical"
+                      className="form-input w-full"
+                      type="text"
+                      name="viseDepartmentHeadForClinical"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.viseDepartmentHeadForClinical}
+                    />
+                    {formik.touched.viseDepartmentHeadForClinical &&
+                    formik.errors.viseDepartmentHeadForClinical ? (
+                      <div className="text-red-600">
+                        {formik.errors.viseDepartmentHeadForClinical}
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* clinical head role*/}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForClinicalRole"
+                    >
+                      Vise Department Head Roles for Clinical
+                    </label>
+                    <textarea
+                      rows={5}
+                      id="viseDepartmentHeadForClinicalRole"
+                      className="form-input w-full"
+                      type="text"
+                      name="viseDepartmentHeadForClinicalRole"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.viseDepartmentHeadForClinicalRole}
+                    />
+                    {formik.touched.viseDepartmentHeadForClinicalRole &&
+                    formik.errors.viseDepartmentHeadForClinicalRole ? (
+                      <div className="text-red-600">
+                        {formik.errors.viseDepartmentHeadForClinicalRole}
+                      </div>
+                    ) : null}
+                  </div>
+                  {/* clinical head appointed date*/}
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                      htmlFor="viseDepartmentHeadForClinicalAppointedDate"
+                    >
+                      Vise Department Head AppointedDate for Clinical
+                    </label>
+                    <input
+                      id="viseDepartmentHeadForClinicalAppointedDate"
+                      className="form-input w-full"
+                      type="date"
+                      name="viseDepartmentHeadForClinicalAppointedDate"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={
+                        formik.values.viseDepartmentHeadForClinicalAppointedDate
+                      }
+                    />
+                    {formik.touched
+                      .viseDepartmentHeadForClinicalAppointedDate &&
+                    formik.errors.viseDepartmentHeadForClinicalAppointedDate ? (
+                      <div className="text-red-600">
+                        {
+                          formik.errors
+                            .viseDepartmentHeadForClinicalAppointedDate
+                        }
                       </div>
                     ) : null}
                   </div>

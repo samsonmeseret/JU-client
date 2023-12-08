@@ -1,10 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
-import Sidebar from "../../partials/Sidebar";
-import Header from "../../partials/Header";
-import SearchForm from "../../partials/actions/SearchForm";
-import DeleteButton from "../../partials/actions/DeleteButton";
-import DateSelect from "../../components/DateSelect";
-import FilterButton from "../../components/DropdownFilter";
 import Swal from "sweetalert2";
 import {
   DataGrid,
@@ -19,30 +13,47 @@ import { IoOpenOutline } from "react-icons/io5";
 import { GoPencil } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import Modal from "@mui/material/Modal";
-import { GrClose } from "react-icons/gr";
 import useFetch from "../../customHooks/useFetch";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import CompLoader from "../../components/CompLoader";
-import ModalBasic from "../../components/ModalBasic";
 import { axiosInstance } from "../../api/axios";
 import EdittingForm from "./EdittingForm";
 import { useSelector, useDispatch } from "react-redux";
 import { getDepartments } from "../../Redux/reducers/dataSlice";
 import { toast, ToastContainer } from "react-toastify";
+import moment from "moment";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import IconButton from "@mui/material/IconButton";
+import Zoom from "@mui/material/Zoom";
 
 function DepartmentList() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [isViewMode, setIsViewMode] = useState(false);
+
   const [department, setDepartment] = useState({});
 
   const dispatch = useDispatch();
-  const { fetchAllData } = useFetch();
   const { departmentList, isLoading } = useSelector((state) => state.deptData);
-  console.log(departmentList);
+
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: "#f5f5f9",
+      color: "rgba(0, 0, 0, 0.87)",
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: "1px solid #dadde9",
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+      color: "#f5f5f9", // Set the arrow color to match the background color
+    },
+  }));
+
   useEffect(() => {
     if (!departmentList || departmentList?.length == 0) {
       dispatch(getDepartments());
@@ -61,10 +72,6 @@ function DepartmentList() {
       setIsEditing(true);
     };
 
-    // const viewHandler = () => {
-    //   setIsEditing(false);
-    //   setIsViewMode(true);
-    // };
     const deleteHandler = useCallback(() => {
       Swal.fire({
         title: "Are you sure?",
@@ -141,26 +148,122 @@ function DepartmentList() {
     },
     {
       field: "name",
-      headerName: "Department Name",
+      headerName: "Dept Name",
       width: 200,
     },
     {
       field: "departmentHead",
-      headerName: "Department Head",
+      headerName: "Dept Head",
       width: 200,
-      description: "Department head of the Faculity",
     },
     {
-      field: "academicCoordinator",
-      headerName: "Academic Coordinator",
+      field: "departmentHeadRole",
+      headerName: "Dept Head Roles",
       width: 200,
-      description: "Accedemic Coordinator of the Faculity",
+      renderCell: (params) => {
+        let nameArray = params?.value?.split(",");
+        console.log(nameArray);
+        return (
+          <HtmlTooltip
+            placement="right"
+            arrow
+            TransitionComponent={Zoom}
+            title={
+              <ul>
+                {nameArray?.map((val) => (
+                  <li>{val}</li>
+                ))}
+              </ul>
+            }
+          >
+            {params.value}
+          </HtmlTooltip>
+        );
+      },
     },
     {
-      field: "clinicalCoordinator",
-      headerName: "Clinical Coordinator",
+      field: "departmentHeadAppointedDate",
+      headerName: "Dept Head Appointed Date",
       width: 200,
-      description: "Clinical Coordinator in the Hospital",
+      renderCell: (data) => {
+        return <div>{moment(data?.value).format("ll")}</div>;
+      },
+    },
+    {
+      field: "viseDepartmentHeadForAccademic",
+      headerName: "Vise Dept Head for Accademic",
+      width: 200,
+    },
+    {
+      field: "viseDepartmentHeadForAccademicRole",
+      headerName: "Vise Dept Head for Accademic Roles",
+      width: 200,
+      renderCell: (params) => {
+        let nameArray = params?.value?.split(",");
+        console.log(nameArray);
+        return (
+          <HtmlTooltip
+            placement="right"
+            arrow
+            TransitionComponent={Zoom}
+            title={
+              <ul>
+                {nameArray?.map((val) => (
+                  <li>{val}</li>
+                ))}
+              </ul>
+            }
+          >
+            {params.value}
+          </HtmlTooltip>
+        );
+      },
+    },
+    {
+      field: "viseDepartmentHeadForAccademicAppointedDate",
+      headerName: "Vise Dept Head for Accademic Appointed date",
+      width: 200,
+      renderCell: (data) => {
+        return <div>{moment(data?.value).format("ll")}</div>;
+      },
+    },
+    {
+      field: "viseDepartmentHeadForClinical",
+      headerName: "Vise Dept Head for Clinical",
+      width: 200,
+    },
+    {
+      field: "viseDepartmentHeadForClinicalRole",
+      headerName: "Vise Dept Head for Clinical Roles",
+      width: 200,
+      renderCell: (params) => {
+        let nameArray = params?.value?.split(",");
+        console.log(nameArray);
+        return (
+          <HtmlTooltip
+            placement="right"
+            arrow
+            TransitionComponent={Zoom}
+            title={
+              <ul>
+                {nameArray?.map((val) => (
+                  <li>{val}</li>
+                ))}
+              </ul>
+            }
+          >
+            {params.value}
+          </HtmlTooltip>
+        );
+      },
+    },
+    {
+      field: "viseDepartmentHeadForClinicalAppointedDate",
+      headerName: "Vise Dept Head for Clinical Appointed date",
+      width: 200,
+      renderCell: (data) => {
+        return <div>{moment(data?.value).format("ll")}</div>;
+      },
     },
   ]);
   const style = {
@@ -168,10 +271,10 @@ function DepartmentList() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    maxWidth: 800,
+    maxWidth: "100%",
     maxHeight: "100vh",
     overflowY: "scroll",
-    width: 500,
+    width: 700,
     bgcolor: "background.paper",
     border: "2px solid #000",
     borderRadius: "7px",
@@ -182,21 +285,47 @@ function DepartmentList() {
   const formik = useFormik({
     initialValues: {
       name: "",
+      // head
       departmentHead: "",
-      academicCoordinator: "",
-      clinicalCoordinator: "",
+      departmentHeadRole: "",
+      departmentHeadAppointedDate: "",
+      // acc vise head
+      viseDepartmentHeadForAccademic: "",
+      viseDepartmentHeadForAccademicRole: "",
+      viseDepartmentHeadForAccademicAppointedDate: "",
+      //clin vise head
+      viseDepartmentHeadForClinical: "",
+      viseDepartmentHeadForClinicalRole: "",
+      viseDepartmentHeadForClinicalAppointedDate: "",
     },
 
     validationSchema: Yup.object({
       name: Yup.string().required("please enter the department name"),
-      academicCoordinator: Yup.string().required(
-        "please enter the academic coordinator"
-      ),
-
-      clinicalCoordinator: Yup.string().required(
-        "please enter the clinical coordinator"
-      ),
       departmentHead: Yup.string().required("please enter the department head"),
+      departmentHeadRole: Yup.string().required(
+        "please enter the department head roles"
+      ),
+      departmentHeadAppointedDate: Yup.string().required(
+        "please enter the Appointed Date"
+      ),
+      viseDepartmentHeadForAccademic: Yup.string().required(
+        "please enter the vise Department Head for Accadamic"
+      ),
+      viseDepartmentHeadForAccademicRole: Yup.string().required(
+        "please enter the vise Department Head for Accadamic Role"
+      ),
+      viseDepartmentHeadForAccademicAppointedDate: Yup.string().required(
+        "please enter the vise Department Head for Accadamic Appointed date"
+      ),
+      viseDepartmentHeadForClinical: Yup.string().required(
+        "please enter the vise Department Head for Clinical"
+      ),
+      viseDepartmentHeadForClinicalRole: Yup.string().required(
+        "please enter the vise Department Head for Clinical Role"
+      ),
+      viseDepartmentHeadForClinicalAppointedDate: Yup.string().required(
+        "please enter the vise Department Head for Clinical Appointed date"
+      ),
     }),
     onSubmit: (values) => {
       axiosInstance
@@ -335,6 +464,7 @@ function DepartmentList() {
 
                         <form onSubmit={formik.handleSubmit}>
                           <div className="space-y-4">
+                            {/* name */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -357,6 +487,7 @@ function DepartmentList() {
                                 </div>
                               ) : null}
                             </div>
+                            {/* department head */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
@@ -368,7 +499,6 @@ function DepartmentList() {
                                 id="departmentHead"
                                 className="form-input w-full"
                                 type="text"
-                                autoComplete="on"
                                 name="departmentHead"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -381,51 +511,237 @@ function DepartmentList() {
                                 </div>
                               ) : null}
                             </div>
+                            {/* department head role*/}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
-                                htmlFor="academicCoordinator"
+                                htmlFor="departmentHeadRole"
                               >
-                                Acedamic Coordinator
+                                Department Head Roles
                               </label>
-                              <input
-                                id="academicCoordinator"
+                              <textarea
+                                rows={5}
+                                id="departmentHeadRole"
                                 className="form-input w-full"
                                 type="text"
-                                autoComplete="on"
-                                name="academicCoordinator"
+                                name="departmentHeadRole"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.academicCoordinator}
+                                value={formik.values.departmentHeadRole}
                               />
-                              {formik.touched.academicCoordinator &&
-                              formik.errors.academicCoordinator ? (
+                              {formik.touched.departmentHeadRole &&
+                              formik.errors.departmentHeadRole ? (
                                 <div className="text-red-600">
-                                  {formik.errors.academicCoordinator}
+                                  {formik.errors.departmentHeadRole}
                                 </div>
                               ) : null}
                             </div>
+                            {/* dpt head appointed date */}
                             <div>
                               <label
                                 className="block text-sm font-medium mb-1"
-                                htmlFor="clinicalCoordinator"
+                                htmlFor="departmentHeadAppointedDate"
                               >
-                                Clinical Coordinator
+                                Department Head Appointed Date
                               </label>
                               <input
-                                id="clinicalCoordinator"
+                                id="departmentHeadAppointedDate"
                                 className="form-input w-full"
-                                type="text"
-                                autoComplete="on"
-                                name="clinicalCoordinator"
+                                type="date"
+                                name="departmentHeadAppointedDate"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.clinicalCoordinator}
+                                value={
+                                  formik.values.departmentHeadAppointedDate
+                                }
                               />
-                              {formik.touched.clinicalCoordinator &&
-                              formik.errors.clinicalCoordinator ? (
+                              {formik.touched.departmentHeadAppointedDate &&
+                              formik.errors.departmentHeadAppointedDate ? (
                                 <div className="text-red-600">
-                                  {formik.errors.clinicalCoordinator}
+                                  {formik.errors.departmentHeadAppointedDate}
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* vise dpt departmet for accademic */}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForAccademic"
+                              >
+                                Vise Department Head for Accademic
+                              </label>
+                              <input
+                                id="viseDepartmentHeadForAccademic"
+                                className="form-input w-full"
+                                type="text"
+                                name="viseDepartmentHeadForAccademic"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values.viseDepartmentHeadForAccademic
+                                }
+                              />
+                              {formik.touched.viseDepartmentHeadForAccademic &&
+                              formik.errors.viseDepartmentHeadForAccademic ? (
+                                <div className="text-red-600">
+                                  {formik.errors.viseDepartmentHeadForAccademic}
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* accedemic roles */}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForAccademicRole"
+                              >
+                                Vise Department Head Roles for Accademic
+                              </label>
+                              <textarea
+                                rows={5}
+                                id="viseDepartmentHeadForAccademicRole"
+                                className="form-input w-full"
+                                type="text"
+                                name="viseDepartmentHeadForAccademicRole"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values
+                                    .viseDepartmentHeadForAccademicRole
+                                }
+                              />
+                              {formik.touched
+                                .viseDepartmentHeadForAccademicRole &&
+                              formik.errors
+                                .viseDepartmentHeadForAccademicRole ? (
+                                <div className="text-red-600">
+                                  {
+                                    formik.errors
+                                      .viseDepartmentHeadForAccademicRole
+                                  }
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* accedamic appointed date */}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForAccademicAppointedDate"
+                              >
+                                Vise Department Head Appointed Date for
+                                Accademic
+                              </label>
+                              <input
+                                id="viseDepartmentHeadForAccademicAppointedDate"
+                                className="form-input w-full"
+                                type="date"
+                                name="viseDepartmentHeadForAccademicAppointedDate"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values
+                                    .viseDepartmentHeadForAccademicAppointedDate
+                                }
+                              />
+                              {formik.touched
+                                .viseDepartmentHeadForAccademicAppointedDate &&
+                              formik.errors
+                                .viseDepartmentHeadForAccademicAppointedDate ? (
+                                <div className="text-red-600">
+                                  {
+                                    formik.errors
+                                      .viseDepartmentHeadForAccademicAppointedDate
+                                  }
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* clinical head */}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForClinical"
+                              >
+                                Vise Department Head for Clinical
+                              </label>
+                              <input
+                                id="viseDepartmentHeadForClinical"
+                                className="form-input w-full"
+                                type="text"
+                                name="viseDepartmentHeadForClinical"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values.viseDepartmentHeadForClinical
+                                }
+                              />
+                              {formik.touched.viseDepartmentHeadForClinical &&
+                              formik.errors.viseDepartmentHeadForClinical ? (
+                                <div className="text-red-600">
+                                  {formik.errors.viseDepartmentHeadForClinical}
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* clinical head role*/}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForClinicalRole"
+                              >
+                                Vise Department Head Roles for Clinical
+                              </label>
+                              <textarea
+                                rows={5}
+                                id="viseDepartmentHeadForClinicalRole"
+                                className="form-input w-full"
+                                type="text"
+                                name="viseDepartmentHeadForClinicalRole"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values
+                                    .viseDepartmentHeadForClinicalRole
+                                }
+                              />
+                              {formik.touched
+                                .viseDepartmentHeadForClinicalRole &&
+                              formik.errors
+                                .viseDepartmentHeadForClinicalRole ? (
+                                <div className="text-red-600">
+                                  {
+                                    formik.errors
+                                      .viseDepartmentHeadForClinicalRole
+                                  }
+                                </div>
+                              ) : null}
+                            </div>
+                            {/* clinical head appointed date*/}
+                            <div>
+                              <label
+                                className="block text-sm font-medium mb-1"
+                                htmlFor="viseDepartmentHeadForClinicalAppointedDate"
+                              >
+                                Vise Department Head AppointedDate for Clinical
+                              </label>
+                              <input
+                                id="viseDepartmentHeadForClinicalAppointedDate"
+                                className="form-input w-full"
+                                type="date"
+                                name="viseDepartmentHeadForClinicalAppointedDate"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={
+                                  formik.values
+                                    .viseDepartmentHeadForClinicalAppointedDate
+                                }
+                              />
+                              {formik.touched
+                                .viseDepartmentHeadForClinicalAppointedDate &&
+                              formik.errors
+                                .viseDepartmentHeadForClinicalAppointedDate ? (
+                                <div className="text-red-600">
+                                  {
+                                    formik.errors
+                                      .viseDepartmentHeadForClinicalAppointedDate
+                                  }
                                 </div>
                               ) : null}
                             </div>
