@@ -1,5 +1,5 @@
-// export let baseURL = "https://api.hifms.org";
-export let baseURL = "http://localhost:5000";
+export let baseURL = "https://api.hifms.org";
+// export let baseURL = "http://localhost:5000";
 
 export const endPoint = {
   BASE_URL: baseURL,

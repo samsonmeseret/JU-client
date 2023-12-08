@@ -1,7 +1,28 @@
 import React, { useState } from "react";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import IconButton from "@mui/material/IconButton";
+import Zoom from "@mui/material/Zoom";
 
 const DataCard = ({ data }) => {
-  console.log(data);
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: "#f5f5f9",
+      color: "rgba(0, 0, 0, 0.87)",
+      minWidth: 220,
+      maxHeight: 300,
+      overflowY: "scroll",
+      fontSize: theme.typography.pxToRem(12),
+      border: "1px solid #dadde9",
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+      color: "#f5f5f9", // Set the arrow color to match the background color
+    },
+  }));
+
   const [isHovered, setIsHovered] = useState(false);
   const [staffs, setStaffs] = useState([]);
   return (
@@ -47,10 +68,60 @@ const DataCard = ({ data }) => {
               </div>
               <div>
                 <p className="flex gap-3">
-                  <span> {data?.domesticOnEducation}</span>
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.domesticOnEducationData?.map((val) => (
+                          <li>
+                            {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.domesticOnEducation}
+                  </HtmlTooltip>
                 </p>
-                <p> {data?.abroadOnEducation}</p>
-                <p> {data?.totalOnEducation}</p>
+                <p>
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.abroadOnEducationData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {console.log(data?.abroadOnEducationData)}
+                    {data?.abroadOnEducation}
+                  </HtmlTooltip>
+                </p>
+                <p>
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.totalOnEducationData?.map((val) => (
+                          <li>
+                            {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.totalOnEducation}
+                  </HtmlTooltip>
+                </p>
               </div>
             </div>
           </div>
@@ -81,166 +152,296 @@ const DataCard = ({ data }) => {
                 <p>Professor</p>
               </div>
               <div>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.graduateAssistantIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  <span> {data?.byRank?.graduateAssistantI}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  {" "}
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.graduateAssistantIData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.graduateAssistantI}
+                  </HtmlTooltip>
                 </p>
 
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.graduateAssistantIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
+                <p className="px-1 hover:bg-blue-100 rounded-md">
                   {" "}
                   {data?.byRank?.graduateAssistantII}
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.assistantLectureData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.assistantLecture}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.assistantLectureData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.assistantLecture}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.lecturerData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.lecturer}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.lecturerData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.lecturerI}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.technicalAssistanceIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.technicalAssistanceI}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.technicalAssistanceIData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.technicalAssistanceI}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.technicalAssistanceIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.technicalAssistanceII}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.technicalAssistanceIIData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.technicalAssistanceII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.technicalAssistanceIIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.technicalAssistanceIII}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.technicalAssistanceIIIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.technicalAssistanceIII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.seniorTechnicalAssistantIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.seniorTechnicalAssistantI}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.seniorTechnicalAssistantIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.seniorTechnicalAssistantI}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.seniorTechnicalAssistantIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
+                <p className="px-1 hover:bg-blue-100 rounded-md">
                   {" "}
-                  {data?.byRank?.seniorTechnicalAssistantII}
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.seniorTechnicalAssistantIIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.seniorTechnicalAssistantII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.seniorTechnicalAssistantIIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.seniorTechnicalAssistantIII}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.seniorTechnicalAssistantIIIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.seniorTechnicalAssistantIII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.chiefTechnicalAssistantIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.chiefTechnicalAssistantI}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.chiefTechnicalAssistantIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.chiefTechnicalAssistantI}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.chiefTechnicalAssistantIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.chiefTechnicalAssistantII}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.chiefTechnicalAssistantIIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.chiefTechnicalAssistantII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.chiefTechnicalAssistantIIIData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.chiefTechnicalAssistantIII}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.chiefTechnicalAssistantIIIData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.chiefTechnicalAssistantIII}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.assistanceProfessorData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.assistanceProfessor}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.assistanceProfessorData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.assistanceProfessor}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byRank?.associateProfessorData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byRank?.associateProfessor}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.associateProfessorData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.associateProfessor}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  onClick={() => {
-                    setStaffs(data?.byRank?.professorData);
-                    setIsHovered(!isHovered);
-                  }}
-                  // onMouseLeave={() => setIsHovered(false)}
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                >
-                  {" "}
-                  {data?.byRank?.professor}{" "}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byRank?.professorData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byRank?.professor}
+                  </HtmlTooltip>
                 </p>
               </div>
             </div>
@@ -265,86 +466,154 @@ const DataCard = ({ data }) => {
               </div>
               <div>
                 <p className="flex gap-3">
-                  <span
-                    className="px-1 hover:bg-blue-100 rounded-md"
-                    onClick={() => {
-                      setStaffs(data?.byEducationalLevel?.BSCData);
-                      setIsHovered(!isHovered);
-                    }}
-                  >
-                    {" "}
-                    {data?.byEducationalLevel?.BSC}
+                  <span className="px-1 hover:bg-blue-100 rounded-md">
+                    <HtmlTooltip
+                      placement="right"
+                      arrow
+                      TransitionComponent={Zoom}
+                      title={
+                        <ul>
+                          {data?.byEducationalLevel?.BSCData?.map((val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          ))}
+                        </ul>
+                      }
+                    >
+                      {data?.byEducationalLevel?.BSC}
+                    </HtmlTooltip>
                   </span>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.MDData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.MD}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.MDData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.MD}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.DMDData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.DMD}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.DMDData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.DMD}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.MSCData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.MSC}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.MSCData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.MSC}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.PHDData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.PHD}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.PHDData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.PHD}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.SpecialtyData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.Specialty}{" "}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.SpecialtyData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.Specialty}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.SubspecialtyData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.Subspecialty}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.SubspecialtyData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.Subspecialty}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byEducationalLevel?.SuperSpecialtyData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  {" "}
-                  {data?.byEducationalLevel?.SuperSpecialty}
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byEducationalLevel?.SuperSpecialtyData?.map(
+                          (val) => (
+                            <li>
+                              🩺 {val.firstName} {val.middleName} {val.lastName}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    }
+                  >
+                    {data?.byEducationalLevel?.SuperSpecialty}
+                  </HtmlTooltip>
                 </p>
               </div>
             </div>
@@ -363,32 +632,60 @@ const DataCard = ({ data }) => {
                 <p>Total Staff</p>
               </div>
               <div>
-                <p
-                  onClick={() => {
-                    setStaffs(data?.byGender?.maleData);
-                    setIsHovered(!isHovered);
-                  }}
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                >
-                  <span> {data?.byGender?.male}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byGender?.maleData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byGender?.male}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  onClick={() => {
-                    setStaffs(data?.byGender?.femaleData);
-                    setIsHovered(!isHovered);
-                  }}
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                >
-                  <span> {data?.byGender?.female}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byGender?.femaleData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byGender?.female}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                  onClick={() => {
-                    setStaffs(data?.byGender?.femaleData);
-                    setIsHovered(!isHovered);
-                  }}
-                >
-                  <span> {data?.result?.length}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  {" "}
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.result?.lengthData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.result?.length}
+                  </HtmlTooltip>
                 </p>
               </div>
             </div>
@@ -406,23 +703,43 @@ const DataCard = ({ data }) => {
                 <p>Foreigners</p>
               </div>
               <div>
-                <p
-                  onClick={() => {
-                    setStaffs(data?.byCitizenship?.ethiopianData);
-                    setIsHovered(!isHovered);
-                  }}
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                >
-                  <span> {data?.byCitizenship?.ethiopian}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  {" "}
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byCitizenship?.ethiopianData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byCitizenship?.ethiopian}
+                  </HtmlTooltip>
                 </p>
-                <p
-                  onClick={() => {
-                    setStaffs(data?.byCitizenship?.AbroadData);
-                    setIsHovered(!isHovered);
-                  }}
-                  className="px-1 hover:bg-blue-100 rounded-md"
-                >
-                  <span> {data?.byCitizenship?.Abroad}</span>
+                <p className="px-1 hover:bg-blue-100 rounded-md">
+                  {" "}
+                  <HtmlTooltip
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                    title={
+                      <ul>
+                        {data?.byCitizenship?.AbroadData?.map((val) => (
+                          <li>
+                            🩺 {val.firstName} {val.middleName} {val.lastName}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  >
+                    {data?.byCitizenship?.Abroad}
+                  </HtmlTooltip>
                 </p>
               </div>
             </div>
