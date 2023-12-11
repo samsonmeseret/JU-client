@@ -29,4 +29,4 @@ jobs:
           password: ${{ secrets.ftp_ju_password }}
           server-dir: /public_html/
           # for react only
-        #   local-dir: ./dist/
+          local-dir: ./dist/
