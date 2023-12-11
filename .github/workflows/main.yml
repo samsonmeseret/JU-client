@@ -10,11 +10,13 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
+
       # this is inorder to build it
-      - name: Use Node.js 20
+      - name: Use Node.js 18
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
+
       # only for react, because server don't build
       - name: 🔨 Build Project
         run: |
