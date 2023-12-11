@@ -16,19 +16,17 @@ jobs:
       #     uses: actions/setup-node@v2
       #     with:
       #       node-version: "20"
-
       # only for react, because server don't build
       # - name: 🔨 Build Project
       #   run: |
       #     npm install --force
       #     npm run build
-
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: www.hifms.org
           username: ${{ secrets.ftp_ju_username }}
           password: ${{ secrets.ftp_ju_password }}
-          server-dir: /hifms.org/
+          server-dir: /public_html/
           # for react only
-          local-dir: ./dist/
+        #   local-dir: ./dist/
