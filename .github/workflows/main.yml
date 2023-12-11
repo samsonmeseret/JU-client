@@ -26,9 +26,9 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: www.hifms.com
+          server: www.hifms.org
           username: ${{ secrets.ftp_ju_username }}
           password: ${{ secrets.ftp_ju_password }}
-          server-dir: /hifms.com/
+          server-dir: /hifms.org/
           # for react only
           local-dir: ./dist/
