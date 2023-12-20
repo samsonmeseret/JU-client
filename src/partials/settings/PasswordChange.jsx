@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import PulseLoader from "../../components/PulseLoader/PulseLoader";
 
-
 const PasswordChange = () => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +37,7 @@ const PasswordChange = () => {
     }),
     onSubmit: (values) => {
       // setIsLoading(true);
-      console.log(values);
+      // console.log(values);
 
       axiosInstance
         .patch(`/me/updatePassword`, values)
@@ -59,17 +58,20 @@ const PasswordChange = () => {
 
         .catch((err) => {
           setIsLoading(false);
-          toast.error("🔒 Password didn't Changed, check current your password ", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-          console.log(err)
+          toast.error(
+            "🔒 Password didn't Changed, check current your password ",
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
+          console.log(err);
         });
     },
   });

@@ -18,7 +18,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
   );
   const { user, isAuth } = useSelector((state) => state.auth);
 
-  console.log(leave);
+  // console.log(leave);
   useEffect(() => {
     if (!instructorList || instructorList?.length == 0) {
       dispatch(getInstructors());

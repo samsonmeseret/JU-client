@@ -99,7 +99,7 @@ function Calendar() {
     axiosInstance
       .get("/events")
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         setEvents(data.data);
       })
       .catch((err) => {});
@@ -156,12 +156,12 @@ function Calendar() {
         });
       });
 
-    console.log(obj);
+    // console.log(obj);
   };
 
   const deleteEvent = async (e) => {
     e.preventDefault();
-    console.log(singleEvent);
+    // console.log(singleEvent);
     axiosInstance
       .delete(`/events/${singleEvent.id}?userId=${singleEvent.UserId}`)
       .then(() => {

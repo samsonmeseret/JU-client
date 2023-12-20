@@ -13,7 +13,7 @@ function DepartmentDisplay() {
 
   const { fetchSingleData, result, isLoading } = useFetch();
 
-  console.log(result);
+  // console.log(result);
 
   useEffect(() => {
     fetchSingleData(`/departments`, departmentId);

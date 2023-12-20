@@ -45,7 +45,7 @@ export default function FileUploadModal({ data, url, name }) {
     axiosInstanceForFile
       .post(`${url}?programId=${data.id}`, formData)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
         setFile((prev) => {
           return {
@@ -63,7 +63,7 @@ export default function FileUploadModal({ data, url, name }) {
   };
 
   const fileHandler = (e) => {
-    console.log(e);
+    // console.log(e);
     setFile((prev) => {
       return {
         file: e.target.files[0],
@@ -73,7 +73,7 @@ export default function FileUploadModal({ data, url, name }) {
   };
 
   const deleteHandler = (plan) => {
-    console.log(plan);
+    // console.log(plan);
     Swal.fire({
       title: "Are you sure?",
       text: `You want to delete ${plan.name}`,
@@ -87,7 +87,7 @@ export default function FileUploadModal({ data, url, name }) {
         axiosInstanceForFile
           .delete(`${url}/${plan.id}?userId=${plan.UserId}`)
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data?.data?.status == false) {
               return Swal.fire(
                 "Not Permitted",
@@ -103,11 +103,11 @@ export default function FileUploadModal({ data, url, name }) {
   };
 
   const fetchAllData = async () => {
-    console.log(data.id);
+    // console.log(data.id);
     axiosInstanceForFile
       .get(`${url}?programId=${data.id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAnnualPlans(res.data);
       })
       .catch((err) => {});

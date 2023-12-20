@@ -26,7 +26,7 @@ function ResetPassword() {
     axios
       .get(`${endPoint.BASE_URL}${endPoint.CHECK_TOKEN}/${token}`)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data?.data.status == "fail") setContentErr(data?.data?.message);
         setContentLoading(false);
       })
@@ -56,7 +56,7 @@ function ResetPassword() {
       axios
         .post(`${endPoint.BASE_URL}${endPoint.RESET_PASSWORD}/${token}`, values)
         .then((data) => {
-          console.log(data?.data);
+          // console.log(data?.data);
           if (data?.data.status == "fail") setErrorMsg(data?.data?.message);
           if (data?.data.status == "success") setResponse(data?.data.message);
           setIsLoading(false);

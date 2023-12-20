@@ -19,7 +19,7 @@ const DataVisualizeLayout = () => {
     axiosInstance
       .get("/instructors")
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         setData(data.data);
         setIsLoading(false);
       })

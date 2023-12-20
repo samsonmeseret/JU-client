@@ -162,7 +162,7 @@ function DepartmentList() {
       width: 200,
       renderCell: (params) => {
         let nameArray = params?.value?.split(",");
-        console.log(nameArray);
+        // console.log(nameArray);
         return (
           <HtmlTooltip
             placement="right"
@@ -200,7 +200,7 @@ function DepartmentList() {
       width: 200,
       renderCell: (params) => {
         let nameArray = params?.value?.split(",");
-        console.log(nameArray);
+        // console.log(nameArray);
         return (
           <HtmlTooltip
             placement="right"
@@ -238,7 +238,7 @@ function DepartmentList() {
       width: 200,
       renderCell: (params) => {
         let nameArray = params?.value?.split(",");
-        console.log(nameArray);
+        // console.log(nameArray);
         return (
           <HtmlTooltip
             placement="right"

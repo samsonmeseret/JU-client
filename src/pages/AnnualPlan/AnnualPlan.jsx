@@ -29,7 +29,7 @@ const AnnualPlan = () => {
   };
 
   const fileHandler = (e) => {
-    console.log(e);
+    // console.log(e);
     setFile((prev) => {
       return {
         file: e.target.files[0],
@@ -52,7 +52,7 @@ const AnnualPlan = () => {
         axiosInstanceForFile
           .delete(`/file/${plan.id}?userId=${plan.UserId}`)
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data?.data?.status == false) {
               return Swal.fire(
                 "Not Permitted",
@@ -77,7 +77,7 @@ const AnnualPlan = () => {
     axiosInstanceForFile
       .post("/file", formData)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
         setFile((prev) => {
           return {

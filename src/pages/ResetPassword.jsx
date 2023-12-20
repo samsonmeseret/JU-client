@@ -30,7 +30,7 @@ function ResetPassword() {
       axios
         .post(`${endPoint.BASE_URL}${endPoint.FORGOT_PASSWORD}`, values)
         .then((data) => {
-          console.log(data?.data);
+          // console.log(data?.data);
           if (data?.data.status == "fail") setErrorMsg(data?.data?.message);
           if (data?.data.status == "success") setResponse(data?.data.message);
           setIsLoading(false);

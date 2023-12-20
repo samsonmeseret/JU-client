@@ -33,10 +33,10 @@ function AccountPanel() {
   // console.log(user)
 
   useEffect(() => {
-    (!departmentList || departmentList?.length == 0) &&
-      dispatch(getDepartments());
+    // (!departmentList || departmentList?.length == 0) &&
+    dispatch(getDepartments());
   }, []);
-  console.log(user);
+  // console.log(user);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -61,7 +61,7 @@ function AccountPanel() {
     }),
     onSubmit: (values) => {
       setIsLoading(true);
-      console.log(values);
+      // console.log(values);
       const formData = new FormData();
       formData.append("firstName", values.firstName);
       formData.append("lastName", values.lastName);

@@ -147,7 +147,7 @@ function StaffList() {
       renderCell: (params) => (
         // <UsersActions {...{ params, rowId, setRowId }} />
         <ActionBtn
-          onClick={(e) => console.log(e.target)}
+          // onClick={}
           {...{ params, rowId, setRowId }}
         />
       ),
@@ -290,7 +290,7 @@ function StaffList() {
       employment: Yup.string().required("please specify the employment type"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       setLoadState(true);
       axiosInstance
         .post("/instructors", values)

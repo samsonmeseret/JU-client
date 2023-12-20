@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function ModalBar({ data, url, name }) {
-  console.log(data);
-  console.log(url);
-  console.log(name);
+  // console.log(data);
+  // console.log(url);
+  // console.log(name);
   const [state, setState] = useState({
     top: false,
   });
@@ -48,7 +48,7 @@ export default function ModalBar({ data, url, name }) {
     axiosInstanceForFile
       .post(url, formData)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
         setFile((prev) => {
           return {
@@ -66,7 +66,7 @@ export default function ModalBar({ data, url, name }) {
   };
 
   const fileHandler = (e) => {
-    console.log(e);
+    // console.log(e);
     setFile((prev) => {
       return {
         file: e.target.files[0],
@@ -76,7 +76,7 @@ export default function ModalBar({ data, url, name }) {
   };
 
   const deleteHandler = (plan) => {
-    console.log(plan);
+    // console.log(plan);
     Swal.fire({
       title: "Are you sure?",
       text: `You want to delete ${plan.name}`,
@@ -90,7 +90,7 @@ export default function ModalBar({ data, url, name }) {
         axiosInstanceForFile
           .delete(`${url}/${plan.id}?userId=${plan.UserId}`)
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data?.data?.status == false) {
               return Swal.fire(
                 "Not Permitted",
@@ -109,7 +109,7 @@ export default function ModalBar({ data, url, name }) {
     axiosInstanceForFile
       .get(`${url}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAnnualPlans(res.data);
       })
       .catch((err) => {});

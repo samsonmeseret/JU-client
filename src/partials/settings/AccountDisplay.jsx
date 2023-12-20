@@ -12,8 +12,8 @@ function AccountPanel() {
   const { userId } = useParams();
 
   const { fetchSingleData, result, isLoading } = useFetch();
-  console.log(userId);
-  console.log(result);
+  // console.log(userId);
+  // console.log(result);
   useEffect(() => {
     fetchSingleData(`/users`, userId);
   }, []);

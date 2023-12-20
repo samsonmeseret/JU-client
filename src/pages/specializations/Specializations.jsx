@@ -42,7 +42,7 @@ function SpecializationsList() {
   const { specializationList, departmentList, isLoading } = useSelector(
     (state) => state.deptData
   );
-  console.log(specializationList);
+  // console.log(specializationList);
   const { departmentId } = useParams();
 
   useEffect(() => {

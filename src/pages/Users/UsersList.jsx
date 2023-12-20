@@ -224,7 +224,7 @@ function UsersList() {
     boxShadow: 24,
     p: 4,
   };
-  console.log(departmentList);
+  // console.log(departmentList);
   const formik = useFormik({
     initialValues: {
       firstName: "",

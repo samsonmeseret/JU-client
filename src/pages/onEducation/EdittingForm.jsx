@@ -85,7 +85,7 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
       ),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       axiosInstance
         .patch("/on-education/" + education.id, values)
         .then((data) => {
