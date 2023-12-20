@@ -36,7 +36,7 @@ export const getSpecializations = createAsyncThunk(
     return axiosInstance
       .get(`/specializations?DepartmentId=${id}`)
       .then((resp) => {
-        console.log(resp.data);
+        // console.log(resp.data);
         return resp?.data?.result;
       })
       .catch((err) => {
@@ -64,11 +64,11 @@ export const getInstructors = createAsyncThunk(
 );
 export const getAllInstructors = createAsyncThunk(
   "getAllInstructors",
-  async (id, thunkAPI) => {
+  async () => {
     return axiosInstance
       .get(`/instructors`)
       .then((resp) => {
-        // console.log(resp);
+        // console.log(resp.data);
         return resp?.data?.result;
       })
       .catch((err) => {

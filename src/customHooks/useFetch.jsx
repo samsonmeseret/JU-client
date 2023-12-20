@@ -12,7 +12,7 @@ const useFetch = () => {
 
     try {
       let response = await axiosInstance.post(url, data);
-      console.log(response);
+      // console.log(response);
       setIsError(false);
       setResult(response.data);
       setIsLoading(false);
@@ -42,7 +42,7 @@ const useFetch = () => {
     setIsLoading(true);
     try {
       let response = await axiosInstance.get(`${url}/${id}`);
-      console.log(response);
+      // console.log(response);
       setResult(response?.data);
       setIsLoading(false);
       setIsError(false);
@@ -57,7 +57,7 @@ const useFetch = () => {
     setIsLoading(true);
     try {
       let response = await axiosInstance.patch(`${url}/${id}`, data);
-      console.log(response);
+      // console.log(response);
       setResult(response?.data);
       setIsLoading(false);
       setIsError(false);
@@ -73,7 +73,7 @@ const useFetch = () => {
 
     try {
       let response = await axiosInstance.delete(`${url}/${id}`);
-      console.log(response);
+      // console.log(response);
       setResult(response?.data);
       setIsLoading(false);
       setIsError(false);
@@ -88,7 +88,7 @@ const useFetch = () => {
     setIsLoading(true);
     try {
       let response = await axiosInstance.delete(`${url}`, selectedID);
-      console.log(response);
+      // console.log(response);
       setResult(response?.data);
       setIsLoading(false);
       setIsError(false);

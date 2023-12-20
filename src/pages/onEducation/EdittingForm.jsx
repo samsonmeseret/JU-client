@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import CompLoader from "../../components/CompLoader";
 import { axiosInstance } from "../../api/axios";
 import { Box, Modal } from "@mui/material";
-import { GrClose } from "react-icons/gr";
+// import { GrClose } from "react-icons/gr";
 import {
   getInstructors,
   getAllInstructors,
@@ -25,10 +25,10 @@ const EdittingForm = ({ setEditing, isEditing, education }) => {
   // console.log(user);
 
   useEffect(() => {
-    if (!instructorList || instructorList?.length == 0) {
-      dispatch(getInstructors());
-    }
-    getAllInstructors();
+    // if (!instructorList || instructorList?.length == 0) {
+    dispatch(getAllInstructors());
+    // }
+    // getAllInstructors();
     // if (user.role == "dean") {
     //   let filteredInst = allInstructors.filter(
     //     (item) => item.DepartmentId == item.DepartmentId

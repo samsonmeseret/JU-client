@@ -35,7 +35,7 @@ function LeaveList() {
   const { allInstructors } = useSelector((state) => state.deptData);
   const { user, isAuth } = useSelector((state) => state.auth);
 
-  console.log(result);
+  // console.log(allInstructors);
 
   function getOnEducation(inputArray) {
     return inputArray?.map((item) => ({
@@ -47,9 +47,9 @@ function LeaveList() {
 
   useEffect(() => {
     dispatch(getAllInstructors());
-
+    // dispatch(getAllInstructors());
     fetchAllData("/on-education");
-  }, [isEditing]);
+  }, []);
 
   function ActionBtn({ params, rowId }) {
     let leaveSelected = params.row;
@@ -149,12 +149,12 @@ function LeaveList() {
       description: "Clinical Coordinator in the Hospital",
     },
     {
-      field: "InstructorId",
+      field: "Instuctor",
       headerName: "Instructor",
       width: 200,
-      valueFormatter: (params) => {
+      renderCell: (params) => {
         // params.row.Instructor
-        console.log(params.row);
+        // console.log(params.row);
         // let found = allInstructors?.find((inst) => inst?.id == params.value);
         return `${params.row?.Instructor?.firstName} ${params.row?.Instructor?.lastName}`;
       },
