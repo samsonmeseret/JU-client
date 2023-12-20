@@ -270,9 +270,11 @@ function LeaveList() {
       field: "InstructorId",
       headerName: "Instructor",
       width: 170,
-      valueFormatter: (params) => {
-        let found = allInstructors?.find((inst) => inst?.id == params.value);
-        return `${found?.firstName} ${found?.middleName}`;
+      renderCell: (params) => {
+        // params.row.Instructor
+        // console.log(params.row);
+        // let found = allInstructors?.find((inst) => inst?.id == params.value);
+        return `${params.row?.Instructor?.firstName} ${params.row?.Instructor?.lastName}`;
       },
     },
     user?.role == "dean" &&

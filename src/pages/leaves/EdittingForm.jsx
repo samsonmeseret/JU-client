@@ -6,23 +6,27 @@ import CompLoader from "../../components/CompLoader";
 import { axiosInstance } from "../../api/axios";
 import { Box, Modal } from "@mui/material";
 import { GrClose } from "react-icons/gr";
-import { getLeaves, getInstructors } from "../../Redux/reducers/dataSlice";
+import {
+  getLeaves,
+  getInstructors,
+  getAllInstructors,
+} from "../../Redux/reducers/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import moment from "moment";
 
 const EdittingForm = ({ setEditing, isEditing, leave }) => {
   const dispatch = useDispatch();
-  const { instructorList, leaveList, isLoading } = useSelector(
+  const { instructorList, allInstructors, leaveList, isLoading } = useSelector(
     (state) => state.deptData
   );
   const { user, isAuth } = useSelector((state) => state.auth);
 
   // console.log(leave);
   useEffect(() => {
-    if (!instructorList || instructorList?.length == 0) {
-      dispatch(getInstructors());
-    }
+    // if (!instructorList || instructorList?.length == 0) {
+    dispatch(getAllInstructors());
+    // }
     if (!leaveList || leaveList?.length == 0) dispatch(getLeaves());
   }, []);
 
@@ -267,7 +271,7 @@ const EdittingForm = ({ setEditing, isEditing, leave }) => {
                     >
                       <option value="">-- select instructor --</option>
                       <>
-                        {instructorList?.map((dept) => {
+                        {allInstructors?.map((dept) => {
                           return (
                             <option key={dept.id} value={dept.id}>
                               {dept.firstName} {dept.middleName} {dept.lastName}
