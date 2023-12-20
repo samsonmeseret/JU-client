@@ -8,9 +8,9 @@ import DropdownMenu from "./Dropdown";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth, user } = useSelector((state) => state.auth);
 
-  console.log(isOpen, isAuth);
+  // console.log(isOpen, isAuth);
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
@@ -66,7 +66,7 @@ const Navbar = () => {
                 </NavLink>
               </li> */}
 
-              {isAuth ? (
+              {user ? (
                 <li className="navbar-item">
                   <DropdownMenu />
                 </li>

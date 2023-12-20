@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../api/axios";
-import Cookies from "universal-cookie";
 
 const initialState = {
   isLoading: true,
@@ -8,8 +7,6 @@ const initialState = {
   user: {},
   errMessage: "",
 };
-
-const cookies = new Cookies();
 
 // For Fetching the Loged In User
 export const getUser = createAsyncThunk("getUser", async (name, thunkAPI) => {
@@ -30,8 +27,6 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     logout(state, action) {
-      // cookies.remove("us_id");
-      // console.log(state);
       state.user = {};
       state.isAuth = false;
     },
@@ -47,7 +42,7 @@ const authSlice = createSlice({
     },
     [getUser.rejected]: (state, action) => {
       // state.isAuth = false;
-      state.user = {}
+      state.user = {};
       state.errMessage = action.error;
       state.isLoading = false;
     },

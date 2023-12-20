@@ -17,9 +17,6 @@ import { router } from "./Router";
 import Cookie from "js-cookie";
 import { ToastContainer } from "react-toastify";
 
-// "@vitejs/plugin-react": "^2.0.0",
-// "vite": "^3.0.0"
-
 function App() {
   const { user, isLoading, isAuth } = useSelector((state) => state.auth);
   const { departmentList, instructorList } = useSelector(
@@ -29,8 +26,12 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if (!user) {
     dispatch(getUser());
+  }, [isAuth]);
+
+  useEffect(() => {
+    // if (!user) {
+    // dispatch(getUser());
     // }
     dispatch(getDepartments());
     dispatch(getInstructors());

@@ -8,17 +8,22 @@ import { Dropdown, Space, Button } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../Redux/reducers/authSlice";
 import { useDispatch } from "react-redux";
-import Cookie from "universal-cookie";
+// import Cookie from "universal-cookie";
+import { axiosInstance } from "../../api/axios";
 
-const cookie = new Cookie();
+// const cookie = new Cookie();
 
 const DropdownMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const logOutHandler = () => {
+
+  const logOutHandler = async () => {
+    await axiosInstance.get("/logout");
     dispatch(logout());
-    cookie.remove("us_id");
+    // window.location.reload();
+    // cookie.remove("us_id");
   };
+
   const navigateHandler = () => {
     navigate("/dashboard");
   };

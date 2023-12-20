@@ -4,22 +4,21 @@ import Transition from "../utils/Transition";
 import UserAvatar from "../images/user-avatar-32.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/reducers/authSlice";
-import Cookies from "universal-cookie";
+
 import { axiosInstance } from "../api/axios";
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isAuth, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const cookies = new Cookies();
+
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
   const logOutHandler = () => {
-    cookies.remove("us_id");
+    // cookies.remove("us_id");
     axiosInstance
       .get("/logout")
       .then((data) => {
-        console.log(data);
         dispatch(logout());
       })
       .catch((err) => {
