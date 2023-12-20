@@ -154,8 +154,9 @@ function LeaveList() {
       width: 200,
       valueFormatter: (params) => {
         // params.row.Instructor
+        console.log(params.row);
         // let found = allInstructors?.find((inst) => inst?.id == params.value);
-        return `${params.row.Instructor?.firstName} ${params.row.Instructor?.middleName}`;
+        return `${params.row?.Instructor?.firstName} ${params.row?.Instructor?.lastName}`;
       },
     },
     {
