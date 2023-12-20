@@ -153,8 +153,9 @@ function LeaveList() {
       headerName: "Instructor",
       width: 200,
       valueFormatter: (params) => {
-        let found = allInstructors?.find((inst) => inst?.id == params.value);
-        return `${found?.firstName} ${found?.middleName}`;
+        // params.row.Instructor
+        // let found = allInstructors?.find((inst) => inst?.id == params.value);
+        return `${params.row.Instructor?.firstName} ${params.row.Instructor?.middleName}`;
       },
     },
     {
