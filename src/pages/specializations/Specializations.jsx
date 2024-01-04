@@ -434,7 +434,7 @@ function SpecializationsList() {
                 >
                   <DataGrid
                     columns={column}
-                    rows={specializationList}
+                    rows={specializationList || []}
                     getRowId={(row) => row.id}
                     slots={{
                       toolbar: CustomToolbar,
